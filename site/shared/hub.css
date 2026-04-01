@@ -1,21 +1,21 @@
 /* ==========================================================================
-   Hub Homepage Styles
+   Hub Homepage Styles — List Card Layout
    ========================================================================== */
 
 /* Hero Section */
 .hub-hero {
   text-align: center;
-  padding: clamp(var(--space-12), 8vw, var(--space-24)) 0 clamp(var(--space-8), 5vw, var(--space-16));
+  padding: clamp(var(--space-10), 6vw, var(--space-20)) 0 clamp(var(--space-6), 4vw, var(--space-12));
 }
 
 .hub-hero__logo {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-5);
 }
 .hub-hero__logo svg {
-  width: clamp(64px, 10vw, 96px);
+  width: clamp(56px, 8vw, 80px);
   height: auto;
   color: var(--color-primary);
 }
@@ -24,7 +24,7 @@
   font-family: var(--font-display);
   font-size: var(--text-2xl);
   color: var(--color-text);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
   letter-spacing: -0.01em;
 }
 
@@ -37,86 +37,96 @@
 }
 
 /* --------------------------------------------------------------------------
-   App Grid
+   App List Section
    -------------------------------------------------------------------------- */
-.hub-grid-section {
+.hub-list-section {
   padding-bottom: clamp(var(--space-12), 6vw, var(--space-20));
 }
 
-.hub-grid-section__title {
+.hub-list-section__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.hub-list-section__title {
   font-family: var(--font-display);
   font-size: var(--text-xl);
-  margin-bottom: var(--space-2);
 }
 
-.hub-grid-section__desc {
+.hub-list-section__count {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
-  margin-bottom: var(--space-8);
-}
-
-.hub-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--space-5);
-}
-
-@media (max-width: 480px) {
-  .hub-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-4);
-  }
+  font-variant-numeric: tabular-nums;
 }
 
 /* --------------------------------------------------------------------------
-   App Cards
+   List Cards — Full-width horizontal rows
    -------------------------------------------------------------------------- */
-.app-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: var(--space-6);
+.app-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-3);
+}
+
+.app-list-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+  display: grid;
+  grid-template-columns: auto 44px 1fr auto;
+  align-items: center;
+  gap: var(--space-5);
   transition: all var(--transition-interactive);
   position: relative;
-  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
 }
 
-.app-card--active {
+.app-list-card--active {
   cursor: pointer;
 }
-.app-card--active:hover {
+.app-list-card--active:hover {
   border-color: var(--color-primary);
   box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
-.app-card--active::before {
+.app-list-card--active::after {
   content: '';
   position: absolute;
-  top: 0;
   left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: linear-gradient(180deg, var(--color-primary), var(--color-secondary));
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
-.app-card--coming {
-  opacity: 0.7;
+.app-list-card--coming {
+  opacity: 0.6;
 }
-.app-card--coming:hover {
-  opacity: 0.85;
-}
-
-.app-card__header {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
+.app-list-card--coming:hover {
+  opacity: 0.75;
 }
 
-.app-card__icon {
+/* Number column */
+.app-list-card__number {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-faint);
+  font-variant-numeric: tabular-nums;
+  width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* Icon */
+.app-list-card__icon {
   width: 44px;
   height: 44px;
   border-radius: var(--radius-lg);
@@ -128,47 +138,82 @@
   color: var(--color-primary);
   transition: all var(--transition-interactive);
 }
-.app-card--active:hover .app-card__icon {
+.app-list-card--active:hover .app-list-card__icon {
   background: var(--color-primary);
   color: var(--color-text-inverse);
 }
-.app-card__icon svg {
+.app-list-card__icon svg {
   width: 22px;
   height: 22px;
 }
 
-.app-card__meta {
-  flex: 1;
+/* Content area */
+.app-list-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
   min-width: 0;
 }
 
-.app-card__number {
-  font-size: var(--text-xs);
-  color: var(--color-text-faint);
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  margin-bottom: var(--space-1);
-}
-
-.app-card__title {
+.app-list-card__title {
   font-family: var(--font-display);
   font-size: var(--text-lg);
   color: var(--color-text);
   line-height: 1.3;
 }
 
-.app-card__desc {
+.app-list-card__desc {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
-  line-height: 1.6;
+  line-height: 1.5;
+  max-width: 72ch;
 }
 
-.app-card__footer {
+/* Right side: badges + arrow */
+.app-list-card__meta {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  flex-wrap: wrap;
-  margin-top: auto;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+.app-list-card__arrow {
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-faint);
+  transition: all var(--transition-interactive);
+}
+.app-list-card--active:hover .app-list-card__arrow {
+  color: var(--color-primary);
+  transform: translateX(3px);
+}
+
+/* Mobile: stack into vertical card */
+@media (max-width: 640px) {
+  .app-list-card {
+    grid-template-columns: auto 36px 1fr;
+    grid-template-rows: auto auto;
+    padding: var(--space-4);
+    gap: var(--space-3);
+  }
+  .app-list-card__icon {
+    width: 36px;
+    height: 36px;
+  }
+  .app-list-card__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .app-list-card__meta {
+    grid-column: 2 / -1;
+    justify-content: flex-start;
+  }
+  .app-list-card__arrow {
+    display: none;
+  }
+  .app-list-card__desc {
+    font-size: var(--text-xs);
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -239,7 +284,7 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -247,17 +292,17 @@
   }
 }
 
-.hub-hero { animation: fadeInUp 0.6s ease-out; }
-.app-card { animation: fadeInUp 0.5s ease-out backwards; }
-.app-card:nth-child(1)  { animation-delay: 0.05s; }
-.app-card:nth-child(2)  { animation-delay: 0.1s; }
-.app-card:nth-child(3)  { animation-delay: 0.15s; }
-.app-card:nth-child(4)  { animation-delay: 0.2s; }
-.app-card:nth-child(5)  { animation-delay: 0.25s; }
-.app-card:nth-child(6)  { animation-delay: 0.3s; }
-.app-card:nth-child(7)  { animation-delay: 0.35s; }
-.app-card:nth-child(8)  { animation-delay: 0.4s; }
-.app-card:nth-child(9)  { animation-delay: 0.45s; }
-.app-card:nth-child(10) { animation-delay: 0.5s; }
-.app-card:nth-child(11) { animation-delay: 0.55s; }
-.app-card:nth-child(12) { animation-delay: 0.6s; }
+.hub-hero { animation: fadeInUp 0.5s ease-out; }
+.app-list-card { animation: fadeInUp 0.4s ease-out backwards; }
+.app-list-card:nth-child(1)  { animation-delay: 0.03s; }
+.app-list-card:nth-child(2)  { animation-delay: 0.06s; }
+.app-list-card:nth-child(3)  { animation-delay: 0.09s; }
+.app-list-card:nth-child(4)  { animation-delay: 0.12s; }
+.app-list-card:nth-child(5)  { animation-delay: 0.15s; }
+.app-list-card:nth-child(6)  { animation-delay: 0.18s; }
+.app-list-card:nth-child(7)  { animation-delay: 0.21s; }
+.app-list-card:nth-child(8)  { animation-delay: 0.24s; }
+.app-list-card:nth-child(9)  { animation-delay: 0.27s; }
+.app-list-card:nth-child(10) { animation-delay: 0.30s; }
+.app-list-card:nth-child(11) { animation-delay: 0.33s; }
+.app-list-card:nth-child(12) { animation-delay: 0.36s; }
