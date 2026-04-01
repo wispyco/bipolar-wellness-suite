@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cognitive Patterns Journal — Bipolar Wellness Suite</title>
+  <meta name="description" content="CBT thought records for identifying and restructuring cognitive distortions in bipolar disorder.">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 16c0-5 3.5-9 8-9s6 3 4 9c-2 6-2 9 4 9s8-4 8-9' fill='none' stroke='%233B5998' stroke-width='3' stroke-linecap='round'/></svg>">
+</head>
+<body>
+
+  <a href="#main" class="sr-only" style="position:absolute;top:var(--space-2);left:var(--space-2);z-index:1000;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);font-size:var(--text-sm);" onfocus="this.style.clip='auto';this.style.width='auto';this.style.height='auto';this.style.overflow='visible'" onblur="this.style.clip='rect(0,0,0,0)';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden'">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../../index.html" class="site-nav__logo" aria-label="Back to Bipolar Wellness Suite">
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <path d="M3 18c0-6 4-12 9-12s7 4 6 12c-1 8-1 12 6 12s9-6 9-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="3" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+          <circle cx="33" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+        </svg>
+        <span class="site-nav__logo-text">Bipolar Wellness Suite</span>
+      </a>
+      <div class="site-nav__actions">
+        <button class="btn-icon" data-theme-toggle aria-label="Toggle dark mode"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main" class="app-layout">
+    <div class="container">
+
+      <header class="app-header">
+        <div class="app-header__breadcrumb">
+          <a href="../../index.html">Suite</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span>CBT Journal</span>
+        </div>
+        <h1 class="app-header__title">Cognitive Patterns Journal</h1>
+        <p class="app-header__subtitle">CBT thought records for bipolar disorder -- identify cognitive distortions, challenge automatic thoughts, and build healthier thinking patterns based on Lam et al. and Scott et al. research.</p>
+      </header>
+
+      <!-- Tabs -->
+      <div class="app-tabs" role="tablist" aria-label="App sections">
+        <button class="app-tab app-tab--active" role="tab" data-tab="record" aria-selected="true">New Record</button>
+        <button class="app-tab" role="tab" data-tab="history">History</button>
+        <button class="app-tab" role="tab" data-tab="patterns">Pattern Analysis</button>
+        <button class="app-tab" role="tab" data-tab="reframe">Reframe Helper</button>
+        <button class="app-tab" role="tab" data-tab="distortions">Distortion Guide</button>
+      </div>
+
+      <!-- Tab: New Record -->
+      <section class="tab-panel tab-panel--active" data-panel="record">
+        <div class="card">
+          <h2 class="card__title">Thought Record</h2>
+          <p class="card__desc">Capture the situation, your automatic thought, and work through restructuring it.</p>
+
+          <form id="thought-form" class="thought-form">
+            <div class="form-group">
+              <label class="form-label" for="situation">Situation</label>
+              <textarea id="situation" class="form-input form-textarea" rows="2" placeholder="What was happening? Where were you? Who was there?"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="auto-thought">Automatic Thought</label>
+              <textarea id="auto-thought" class="form-input form-textarea" rows="2" placeholder="What went through your mind? What were you telling yourself?"></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group form-group--flex">
+                <label class="form-label" for="emotion">Emotion</label>
+                <input id="emotion" type="text" class="form-input" placeholder="e.g., Sadness, Anxiety, Anger">
+              </div>
+              <div class="form-group form-group--narrow">
+                <label class="form-label" for="intensity">Intensity (0-100)</label>
+                <div class="intensity-control">
+                  <input id="intensity" type="range" class="intensity-slider" min="0" max="100" value="50">
+                  <span id="intensity-value" class="intensity-value">50</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="distortion">Cognitive Distortion</label>
+              <select id="distortion" class="form-input form-select">
+                <option value="">Select a distortion...</option>
+                <option value="all-or-nothing">All-or-Nothing Thinking</option>
+                <option value="overgeneralization">Overgeneralization</option>
+                <option value="mental-filter">Mental Filter</option>
+                <option value="disqualifying">Disqualifying the Positive</option>
+                <option value="jumping-conclusions">Jumping to Conclusions</option>
+                <option value="magnification">Magnification / Catastrophizing</option>
+                <option value="minimization">Minimization</option>
+                <option value="emotional-reasoning">Emotional Reasoning</option>
+                <option value="should-statements">Should Statements</option>
+                <option value="labeling">Labeling</option>
+                <option value="personalization">Personalization</option>
+                <option value="mind-reading">Mind Reading</option>
+                <option value="fortune-telling">Fortune Telling</option>
+                <option value="blame">Blame</option>
+                <option value="control-fallacies">Control Fallacies</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="alternative">Alternative / Balanced Thought</label>
+              <textarea id="alternative" class="form-input form-textarea" rows="2" placeholder="What is a more balanced way to think about this?"></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group form-group--flex">
+                <label class="form-label" for="new-emotion">New Emotion</label>
+                <input id="new-emotion" type="text" class="form-input" placeholder="How do you feel now?">
+              </div>
+              <div class="form-group form-group--narrow">
+                <label class="form-label" for="new-intensity">New Intensity (0-100)</label>
+                <div class="intensity-control">
+                  <input id="new-intensity" type="range" class="intensity-slider" min="0" max="100" value="30">
+                  <span id="new-intensity-value" class="intensity-value">30</span>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Thought Record</button>
+          </form>
+        </div>
+
+        <div id="save-toast" class="toast" aria-live="polite" hidden>Record saved successfully</div>
+      </section>
+
+      <!-- Tab: History -->
+      <section class="tab-panel" data-panel="history" hidden>
+        <div class="history-header">
+          <h2 class="card__title">Thought Record History</h2>
+          <span id="record-count" class="badge badge-research">0 records</span>
+        </div>
+        <div id="history-list" class="history-list"></div>
+      </section>
+
+      <!-- Tab: Pattern Analysis -->
+      <section class="tab-panel" data-panel="patterns" hidden>
+        <div class="patterns-grid">
+          <div class="card">
+            <h2 class="card__title">Most Common Distortions</h2>
+            <p class="card__desc">Which cognitive distortions appear most frequently in your thought records.</p>
+            <div class="chart-container">
+              <canvas id="distortion-chart"></canvas>
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="card__title">Emotion Intensity Trend</h2>
+            <p class="card__desc">How your initial vs. reframed emotion intensity changes over time.</p>
+            <div class="chart-container">
+              <canvas id="intensity-chart"></canvas>
+            </div>
+          </div>
+          <div class="card stats-card">
+            <h2 class="card__title">Summary Stats</h2>
+            <div class="stats-grid">
+              <div class="stat">
+                <span class="stat__value" id="stat-total">0</span>
+                <span class="stat__label">Total Records</span>
+              </div>
+              <div class="stat">
+                <span class="stat__value" id="stat-avg-before">0</span>
+                <span class="stat__label">Avg. Initial Intensity</span>
+              </div>
+              <div class="stat">
+                <span class="stat__value" id="stat-avg-after">0</span>
+                <span class="stat__label">Avg. Reframed Intensity</span>
+              </div>
+              <div class="stat">
+                <span class="stat__value" id="stat-reduction">0%</span>
+                <span class="stat__label">Avg. Reduction</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: Reframe Helper -->
+      <section class="tab-panel" data-panel="reframe" hidden>
+        <div class="card">
+          <h2 class="card__title">Reframe Helper</h2>
+          <p class="card__desc">Select a cognitive distortion to get guided prompts for challenging and reframing your thought.</p>
+
+          <div class="form-group">
+            <label class="form-label" for="reframe-distortion">Choose a distortion</label>
+            <select id="reframe-distortion" class="form-input form-select">
+              <option value="">Select a distortion...</option>
+              <option value="all-or-nothing">All-or-Nothing Thinking</option>
+              <option value="overgeneralization">Overgeneralization</option>
+              <option value="mental-filter">Mental Filter</option>
+              <option value="disqualifying">Disqualifying the Positive</option>
+              <option value="jumping-conclusions">Jumping to Conclusions</option>
+              <option value="magnification">Magnification / Catastrophizing</option>
+              <option value="minimization">Minimization</option>
+              <option value="emotional-reasoning">Emotional Reasoning</option>
+              <option value="should-statements">Should Statements</option>
+              <option value="labeling">Labeling</option>
+              <option value="personalization">Personalization</option>
+              <option value="mind-reading">Mind Reading</option>
+              <option value="fortune-telling">Fortune Telling</option>
+              <option value="blame">Blame</option>
+              <option value="control-fallacies">Control Fallacies</option>
+            </select>
+          </div>
+
+          <div id="reframe-content" class="reframe-content" hidden>
+            <div class="reframe-section">
+              <h3 class="reframe-section__title" id="reframe-name"></h3>
+              <p class="reframe-section__desc" id="reframe-desc"></p>
+            </div>
+            <div class="reframe-section">
+              <h4 class="reframe-prompt-title">Challenge Questions</h4>
+              <ul id="reframe-questions" class="reframe-questions"></ul>
+            </div>
+            <div class="reframe-section">
+              <h4 class="reframe-prompt-title">Reframing Prompts</h4>
+              <ul id="reframe-prompts" class="reframe-questions"></ul>
+            </div>
+            <div class="reframe-section reframe-example">
+              <h4 class="reframe-prompt-title">Example</h4>
+              <div class="reframe-example__before">
+                <span class="reframe-example__label">Distorted:</span>
+                <p id="reframe-example-before"></p>
+              </div>
+              <div class="reframe-example__after">
+                <span class="reframe-example__label">Reframed:</span>
+                <p id="reframe-example-after"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: Distortion Guide -->
+      <section class="tab-panel" data-panel="distortions" hidden>
+        <div class="card">
+          <h2 class="card__title">Cognitive Distortion Guide</h2>
+          <p class="card__desc">15 common cognitive distortions identified in CBT research. Understanding them is the first step to challenging unhelpful thinking patterns.</p>
+        </div>
+        <div id="distortion-guide" class="distortion-guide"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__disclaimer">This tool is for educational and self-management purposes. It is not a substitute for professional therapy. If you are in crisis, call the 988 Suicide & Crisis Lifeline.</p>
+    </div>
+  </footer>
+
+  <script src="../../shared/nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
