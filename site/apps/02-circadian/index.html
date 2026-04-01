@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circadian Rhythm Analyzer — Bipolar Wellness Suite</title>
+  <meta name="description" content="Track sleep/wake patterns and circadian rhythm consistency using Social Rhythm Therapy principles for bipolar disorder management.">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 16c0-5 3.5-9 8-9s6 3 4 9c-2 6-2 9 4 9s8-4 8-9' fill='none' stroke='%233B5998' stroke-width='3' stroke-linecap='round'/></svg>">
+</head>
+<body>
+
+  <!-- Skip to content -->
+  <a href="#main" class="sr-only" style="position:absolute;top:var(--space-2);left:var(--space-2);z-index:1000;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);font-size:var(--text-sm);" onfocus="this.style.clip='auto';this.style.width='auto';this.style.height='auto';this.style.overflow='visible'" onblur="this.style.clip='rect(0,0,0,0)';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden'">Skip to content</a>
+
+  <!-- Navigation -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../../index.html" class="site-nav__logo" aria-label="Back to Bipolar Wellness Suite">
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <path d="M3 18c0-6 4-12 9-12s7 4 6 12c-1 8-1 12 6 12s9-6 9-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="3" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+          <circle cx="33" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+        </svg>
+        <span class="site-nav__logo-text">Bipolar Wellness Suite</span>
+      </a>
+      <div class="site-nav__actions">
+        <button class="btn-icon" data-theme-toggle aria-label="Toggle dark mode"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main" class="app-layout">
+    <div class="container">
+
+      <!-- App Header -->
+      <header class="app-header">
+        <div class="app-header__breadcrumb">
+          <a href="../../index.html">Suite</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span>Circadian Rhythm</span>
+        </div>
+        <h1 class="app-header__title">Circadian Rhythm Analyzer</h1>
+        <p class="app-header__subtitle">Track sleep/wake patterns and social rhythms based on Social Rhythm Therapy and chronobiology research for bipolar disorder management.</p>
+      </header>
+
+      <!-- Tab Navigation -->
+      <div class="app-tabs" role="tablist" aria-label="App sections">
+        <button class="app-tab app-tab--active" role="tab" aria-selected="true" aria-controls="panel-sleep" id="tab-sleep" data-tab="sleep">Sleep Log</button>
+        <button class="app-tab" role="tab" aria-selected="false" aria-controls="panel-chart" id="tab-chart" data-tab="chart">Sleep Chart</button>
+        <button class="app-tab" role="tab" aria-selected="false" aria-controls="panel-score" id="tab-score" data-tab="score">Circadian Score</button>
+        <button class="app-tab" role="tab" aria-selected="false" aria-controls="panel-srm" id="tab-srm" data-tab="srm">Social Rhythm</button>
+        <button class="app-tab" role="tab" aria-selected="false" aria-controls="panel-tips" id="tab-tips" data-tab="tips">Sleep Tips</button>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- TAB 1: Sleep Log Entry -->
+      <!-- ============================================================ -->
+      <div class="tab-panel tab-panel--active" id="panel-sleep" role="tabpanel" aria-labelledby="tab-sleep">
+        <form class="sleep-entry" id="sleepEntryForm" novalidate>
+
+          <!-- Bedtime & Wake Time -->
+          <div class="sleep-entry__section">
+            <label class="sleep-entry__label">Sleep Window</label>
+            <div class="time-pickers">
+              <div class="field-group">
+                <label for="bedtime">Bedtime</label>
+                <input type="time" id="bedtime" value="22:30">
+              </div>
+              <div class="field-group">
+                <label for="waketime">Wake Time</label>
+                <input type="time" id="waketime" value="07:00">
+              </div>
+            </div>
+          </div>
+
+          <!-- Sleep Quality -->
+          <div class="sleep-entry__section">
+            <label class="sleep-entry__label">
+              Sleep Quality
+              <span class="sleep-entry__sublabel">Rate from 1 (very poor) to 5 (excellent)</span>
+            </label>
+            <div class="star-rating" id="qualityStars" role="radiogroup" aria-label="Sleep quality 1 to 5 stars">
+              <button type="button" class="star-btn" data-value="1" role="radio" aria-checked="false" aria-label="1 star">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </button>
+              <button type="button" class="star-btn" data-value="2" role="radio" aria-checked="false" aria-label="2 stars">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </button>
+              <button type="button" class="star-btn" data-value="3" role="radio" aria-checked="false" aria-label="3 stars">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </button>
+              <button type="button" class="star-btn" data-value="4" role="radio" aria-checked="false" aria-label="4 stars">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </button>
+              <button type="button" class="star-btn" data-value="5" role="radio" aria-checked="false" aria-label="5 stars">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Naps -->
+          <div class="sleep-entry__section">
+            <label class="sleep-entry__label">Naps</label>
+            <div class="nap-row">
+              <div class="toggle-group" id="napToggle" role="radiogroup" aria-label="Did you nap">
+                <button type="button" class="toggle-btn" data-value="yes" role="radio" aria-checked="false">Yes</button>
+                <button type="button" class="toggle-btn" data-value="no" role="radio" aria-checked="false">No</button>
+              </div>
+              <div class="field-group nap-duration" id="napDurationGroup" style="display:none;">
+                <label for="napDuration">Duration (min)</label>
+                <input type="number" id="napDuration" min="0" max="300" step="5" placeholder="e.g., 30">
+              </div>
+            </div>
+          </div>
+
+          <!-- Interruptions -->
+          <div class="sleep-entry__section">
+            <label class="sleep-entry__label">
+              Night Interruptions
+              <span class="sleep-entry__sublabel">Times you woke up during the night</span>
+            </label>
+            <div class="field-group" style="max-width:160px;">
+              <input type="number" id="interruptions" min="0" max="20" step="1" placeholder="0" value="0">
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div class="sleep-entry__section">
+            <label class="sleep-entry__label" for="sleepNotes">Notes</label>
+            <textarea class="notes-field" id="sleepNotes" placeholder="Any observations about your sleep — dreams, difficulty falling asleep, early waking, etc."></textarea>
+          </div>
+
+          <!-- Actions -->
+          <div class="sleep-entry__actions">
+            <button type="submit" class="btn btn-accent">Save Sleep Log</button>
+            <button type="reset" class="btn btn-secondary">Clear</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- TAB 2: Sleep Architecture Chart -->
+      <!-- ============================================================ -->
+      <div class="tab-panel" id="panel-chart" role="tabpanel" aria-labelledby="tab-chart">
+        <div class="chart-section">
+          <div class="chart-container">
+            <div class="chart-header">
+              <h2 class="chart-title">Sleep Architecture — 14 Days</h2>
+              <div class="chart-legend">
+                <div class="chart-legend__item">
+                  <div class="chart-legend__dot" style="background:#C0392B;"></div>
+                  <span>Poor</span>
+                </div>
+                <div class="chart-legend__item">
+                  <div class="chart-legend__dot" style="background:#E8A838;"></div>
+                  <span>Fair</span>
+                </div>
+                <div class="chart-legend__item">
+                  <div class="chart-legend__dot" style="background:#5B8C5A;"></div>
+                  <span>Good</span>
+                </div>
+                <div class="chart-legend__item chart-legend__item--target">
+                  <div class="chart-legend__line"></div>
+                  <span>Target (10PM–6AM)</span>
+                </div>
+              </div>
+            </div>
+            <div class="chart-canvas-wrapper chart-canvas-wrapper--tall">
+              <canvas id="sleepArchChart"></canvas>
+            </div>
+            <p class="chart-hint">Horizontal bars show your sleep windows. Color indicates quality. Dashed lines mark the recommended 10 PM – 6 AM target.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- TAB 3: Circadian Score -->
+      <!-- ============================================================ -->
+      <div class="tab-panel" id="panel-score" role="tabpanel" aria-labelledby="tab-score">
+        <div class="score-section">
+          <!-- Circular Progress -->
+          <div class="circadian-score-card">
+            <div class="circular-progress" id="circadianProgress">
+              <svg viewBox="0 0 200 200" class="circular-progress__svg">
+                <circle cx="100" cy="100" r="85" class="circular-progress__bg"/>
+                <circle cx="100" cy="100" r="85" class="circular-progress__fill" id="scoreCircle"/>
+              </svg>
+              <div class="circular-progress__inner">
+                <div class="circular-progress__value" id="scoreValue">0</div>
+                <div class="circular-progress__label">Circadian Score</div>
+              </div>
+            </div>
+            <div class="score-interpretation" id="scoreInterpretation"></div>
+          </div>
+
+          <!-- Breakdown -->
+          <div class="score-breakdown" id="scoreBreakdown">
+            <h3 class="score-breakdown__title">Score Breakdown</h3>
+            <div class="breakdown-items" id="breakdownItems">
+              <!-- JS populates -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- TAB 4: Social Rhythm Metric (SRM-5) -->
+      <!-- ============================================================ -->
+      <div class="tab-panel" id="panel-srm" role="tabpanel" aria-labelledby="tab-srm">
+        <div class="srm-section">
+          <div class="srm-header">
+            <h2 class="srm-header__title">Social Rhythm Metric (SRM-5)</h2>
+            <p class="srm-header__desc">Track 5 daily anchor activities to maintain rhythm regularity. Consistent timing supports mood stability in bipolar disorder.</p>
+          </div>
+
+          <!-- SRM Entry Form -->
+          <div class="srm-form card" id="srmForm">
+            <h3 class="srm-form__title">Today's Anchors</h3>
+            <div class="srm-anchors">
+              <div class="srm-anchor">
+                <div class="srm-anchor__label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+                  Got out of bed
+                </div>
+                <div class="srm-anchor__inputs">
+                  <input type="time" class="srm-time" data-anchor="bed" value="07:00">
+                  <select class="srm-who" data-anchor="bed">
+                    <option value="alone">Alone</option>
+                    <option value="others">With others</option>
+                  </select>
+                </div>
+              </div>
+              <div class="srm-anchor">
+                <div class="srm-anchor__label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  First contact with another person
+                </div>
+                <div class="srm-anchor__inputs">
+                  <input type="time" class="srm-time" data-anchor="contact" value="08:30">
+                  <select class="srm-who" data-anchor="contact">
+                    <option value="others" selected>With others</option>
+                    <option value="alone">Alone (phone/text)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="srm-anchor">
+                <div class="srm-anchor__label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                  Started work/school/volunteer
+                </div>
+                <div class="srm-anchor__inputs">
+                  <input type="time" class="srm-time" data-anchor="work" value="09:00">
+                  <select class="srm-who" data-anchor="work">
+                    <option value="others" selected>With others</option>
+                    <option value="alone">Alone</option>
+                  </select>
+                </div>
+              </div>
+              <div class="srm-anchor">
+                <div class="srm-anchor__label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                  Had dinner
+                </div>
+                <div class="srm-anchor__inputs">
+                  <input type="time" class="srm-time" data-anchor="dinner" value="18:30">
+                  <select class="srm-who" data-anchor="dinner">
+                    <option value="alone">Alone</option>
+                    <option value="others">With others</option>
+                  </select>
+                </div>
+              </div>
+              <div class="srm-anchor">
+                <div class="srm-anchor__label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                  Went to bed
+                </div>
+                <div class="srm-anchor__inputs">
+                  <input type="time" class="srm-time" data-anchor="sleep" value="22:30">
+                  <select class="srm-who" data-anchor="sleep">
+                    <option value="alone">Alone</option>
+                    <option value="others">With others</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-accent" id="saveSrmBtn" style="margin-top:var(--space-6);">Save Rhythm Entry</button>
+          </div>
+
+          <!-- Weekly Regularity Index -->
+          <div class="srm-regularity card">
+            <h3 class="srm-regularity__title">Weekly Regularity Index</h3>
+            <div class="srm-regularity__score" id="srmRegularityScore">—</div>
+            <p class="srm-regularity__desc" id="srmRegularityDesc">Log at least 7 days to see your regularity index.</p>
+          </div>
+
+          <!-- Visual Timeline -->
+          <div class="srm-timeline card">
+            <h3 class="srm-timeline__title">7-Day Anchor Timeline</h3>
+            <div class="srm-timeline__chart" id="srmTimelineChart">
+              <!-- JS populates -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- TAB 5: Sleep Tips -->
+      <!-- ============================================================ -->
+      <div class="tab-panel" id="panel-tips" role="tabpanel" aria-labelledby="tab-tips">
+        <div class="tips-section">
+          <div class="tips-intro">
+            <h2 class="tips-intro__title">Bipolar-Specific Sleep Hygiene</h2>
+            <p class="tips-intro__desc">Sleep disruption is both a trigger and symptom of bipolar episodes. These evidence-based strategies are tailored for bipolar disorder management.</p>
+          </div>
+          <div class="tips-categories" id="tipsContainer">
+            <!-- JS populates -->
+          </div>
+        </div>
+      </div>
+
+    </div><!-- .container -->
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">Entry saved successfully</div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__disclaimer">This suite is for educational and self-management purposes. It is not a substitute for professional medical care.</p>
+    </div>
+  </footer>
+
+  <script src="../../shared/nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -149,14 +149,9 @@ When adding a new app, update the hub at site/index.html:
 5. Update the count in `<span class="hub-list-section__count">X of 12 active</span>`
 
 ## Deployment Commands
-Deploy to BOTH Vercel (spyro.health) and S3:
+Deploy to S3 and push to GitHub:
 ```bash
-# 1. Deploy to Vercel (spyro.health) — run from site/ directory
-cd /home/user/workspace/bipolar-wellness-suite/site
-NODE_TLS_REJECT_UNAUTHORIZED=0 npx vercel --token $VERCEL_TOKEN --prod --yes
-# Use api_credentials=["vercel"]
-
-# 2. Deploy to S3 preview
+# 1. Deploy to S3 preview
 deploy_website(project_path="/home/user/workspace/bipolar-wellness-suite/site", site_name="Bipolar Wellness Suite", entry_point="index.html")
 ```
 
