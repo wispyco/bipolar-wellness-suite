@@ -80,14 +80,173 @@
       text-align: center;
     }
 
-    .spyro-hero__logo {
+    .spyro-hero__logo-wrap {
+      position: relative;
       margin-bottom: 2rem;
+      width: 320px;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .spyro-hero__logo img {
+    .spyro-hero__logo-wrap img {
+      position: relative;
+      z-index: 3;
       height: auto;
       width: 180px;
       filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.5));
+      animation: logoFloat 6s ease-in-out infinite;
+    }
+
+    /* 3D spiral rings around logo */
+    .spiral {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .spiral__ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 2.5px solid transparent;
+    }
+
+    /* Ring 1 — large outer, slow */
+    .spiral__ring--1 {
+      width: 300px;
+      height: 300px;
+      top: 50%;
+      left: 50%;
+      margin-top: -150px;
+      margin-left: -150px;
+      border-image: linear-gradient(135deg, rgba(168,85,247,0.7), rgba(124,58,237,0.1), rgba(168,85,247,0.5)) 1;
+      border-style: solid;
+      border-width: 2px;
+      border-color: transparent;
+      background: conic-gradient(from 0deg, rgba(168,85,247,0.0), rgba(168,85,247,0.5), rgba(139,92,246,0.6), rgba(168,85,247,0.0)) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: spiralSpin1 12s linear infinite;
+      transform: rotateX(65deg) rotateZ(0deg);
+    }
+
+    /* Ring 2 — medium, opposite direction */
+    .spiral__ring--2 {
+      width: 260px;
+      height: 260px;
+      top: 50%;
+      left: 50%;
+      margin-top: -130px;
+      margin-left: -130px;
+      background: conic-gradient(from 120deg, rgba(192,132,252,0.0), rgba(192,132,252,0.4), rgba(139,92,246,0.5), rgba(192,132,252,0.0)) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      border: 2px solid transparent;
+      animation: spiralSpin2 10s linear infinite;
+      transform: rotateX(70deg) rotateY(30deg) rotateZ(0deg);
+    }
+
+    /* Ring 3 — smaller, faster */
+    .spiral__ring--3 {
+      width: 220px;
+      height: 220px;
+      top: 50%;
+      left: 50%;
+      margin-top: -110px;
+      margin-left: -110px;
+      background: conic-gradient(from 240deg, rgba(216,180,254,0.0), rgba(147,51,234,0.35), rgba(124,58,237,0.45), rgba(216,180,254,0.0)) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      border: 2px solid transparent;
+      animation: spiralSpin3 8s linear infinite;
+      transform: rotateX(60deg) rotateY(-20deg) rotateZ(0deg);
+    }
+
+    /* Floating SVG spiral paths */
+    .spiral__svg {
+      position: absolute;
+      inset: -20px;
+      width: calc(100% + 40px);
+      height: calc(100% + 40px);
+      animation: spiralRotate 20s linear infinite;
+    }
+
+    .spiral__svg--2 {
+      animation: spiralRotate 16s linear infinite reverse;
+      opacity: 0.7;
+    }
+
+    /* Glow orbs floating around */
+    .spiral__orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(4px);
+    }
+
+    .spiral__orb--1 {
+      width: 8px;
+      height: 8px;
+      background: #c084fc;
+      animation: orbitOrb1 8s linear infinite;
+      top: 50%;
+      left: 50%;
+    }
+    .spiral__orb--2 {
+      width: 6px;
+      height: 6px;
+      background: #a855f7;
+      animation: orbitOrb2 6s linear infinite;
+      top: 50%;
+      left: 50%;
+    }
+    .spiral__orb--3 {
+      width: 10px;
+      height: 10px;
+      background: #7c3aed;
+      filter: blur(6px);
+      animation: orbitOrb3 10s linear infinite;
+      top: 50%;
+      left: 50%;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes spiralSpin1 {
+      from { transform: rotateX(65deg) rotateZ(0deg); }
+      to   { transform: rotateX(65deg) rotateZ(360deg); }
+    }
+    @keyframes spiralSpin2 {
+      from { transform: rotateX(70deg) rotateY(30deg) rotateZ(0deg); }
+      to   { transform: rotateX(70deg) rotateY(30deg) rotateZ(-360deg); }
+    }
+    @keyframes spiralSpin3 {
+      from { transform: rotateX(60deg) rotateY(-20deg) rotateZ(0deg); }
+      to   { transform: rotateX(60deg) rotateY(-20deg) rotateZ(360deg); }
+    }
+
+    @keyframes spiralRotate {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes orbitOrb1 {
+      0%   { transform: translate(-50%, -50%) rotate(0deg)   translateX(140px) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg) translateX(140px) rotate(-360deg); }
+    }
+    @keyframes orbitOrb2 {
+      0%   { transform: translate(-50%, -50%) rotate(120deg)  translateX(110px) rotate(-120deg); }
+      100% { transform: translate(-50%, -50%) rotate(-240deg) translateX(110px) rotate(240deg); }
+    }
+    @keyframes orbitOrb3 {
+      0%   { transform: translate(-50%, -50%) rotate(240deg)  translateX(155px) rotate(-240deg); }
+      100% { transform: translate(-50%, -50%) rotate(600deg)  translateX(155px) rotate(-600deg); }
     }
 
     .spyro-hero__title {
@@ -503,7 +662,8 @@
     <div class="spyro-hero__glow-2"></div>
 
     <div class="spyro-hero__content">
-      <div class="spyro-hero__logo">
+      <div class="spyro-hero__logo-wrap">
+        <canvas id="spiral-canvas"></canvas>
         <img src="logo.png" alt="Spyro Logo" width="180" height="180">
       </div>
       <h1 class="spyro-hero__title">AI Agent Research Lab</h1>
@@ -724,5 +884,88 @@
     </div>
   </footer>
 
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
+  <script type="module">
+    import * as THREE from 'three';
+
+    const canvas = document.getElementById('spiral-canvas');
+    const W = 380, H = 380;
+    canvas.width = W * 2; canvas.height = H * 2;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setSize(W, H);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+    camera.position.set(0, 0, 5.5);
+
+    function makeHelix(offset, color1, color2, radius, tubeR, turns, pts) {
+      const points = [];
+      for (let i = 0; i <= pts; i++) {
+        const t = i / pts;
+        const angle = t * Math.PI * 2 * turns + offset;
+        points.push(new THREE.Vector3(
+          Math.cos(angle) * radius,
+          (t - 0.5) * 4.5,
+          Math.sin(angle) * radius
+        ));
+      }
+      const curve = new THREE.CatmullRomCurve3(points);
+      const geo = new THREE.TubeGeometry(curve, pts * 2, tubeR, 8, false);
+      const count = geo.attributes.position.count;
+      const colors = new Float32Array(count * 3);
+      const c1 = new THREE.Color(color1);
+      const c2 = new THREE.Color(color2);
+      for (let i = 0; i < count; i++) {
+        const t = i / count;
+        const c = c1.clone().lerp(c2, Math.sin(t * Math.PI));
+        colors[i*3] = c.r; colors[i*3+1] = c.g; colors[i*3+2] = c.b;
+      }
+      geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      return new THREE.Mesh(geo, new THREE.MeshBasicMaterial({
+        vertexColors: true, transparent: true, opacity: 0.6, side: THREE.DoubleSide
+      }));
+    }
+
+    const helix1 = makeHelix(0,       '#a855f7','#7c3aed', 1.6, 0.035, 3, 300);
+    const helix2 = makeHelix(Math.PI, '#c084fc','#9333ea', 1.6, 0.035, 3, 300);
+    const helix3 = makeHelix(Math.PI/2,'#d8b4fe','#a855f7', 2.0, 0.02, 2, 200);
+    helix3.material.opacity = 0.3;
+
+    const particleCount = 60;
+    const pGeo = new THREE.BufferGeometry();
+    const pPos = new Float32Array(particleCount * 3);
+    const pCol = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      const t = i / particleCount;
+      const a = t * Math.PI * 2 * 3;
+      const r = 1.6 + (Math.random() - 0.5) * 0.8;
+      pPos[i*3] = Math.cos(a)*r; pPos[i*3+1] = (t-0.5)*4.5; pPos[i*3+2] = Math.sin(a)*r;
+      const c = new THREE.Color().lerpColors(new THREE.Color('#c084fc'), new THREE.Color('#7c3aed'), Math.random());
+      pCol[i*3] = c.r; pCol[i*3+1] = c.g; pCol[i*3+2] = c.b;
+    }
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+    pGeo.setAttribute('color', new THREE.BufferAttribute(pCol, 3));
+    const pMat = new THREE.PointsMaterial({
+      size: 0.04, vertexColors: true, transparent: true, opacity: 0.8,
+      blending: THREE.AdditiveBlending, depthWrite: false
+    });
+    const particles = new THREE.Points(pGeo, pMat);
+
+    const group = new THREE.Group();
+    group.add(helix1, helix2, helix3, particles);
+    group.rotation.x = 0.3;
+    scene.add(group);
+
+    (function animate(time) {
+      requestAnimationFrame(animate);
+      const t = time * 0.001;
+      group.rotation.y = t * 0.3;
+      group.position.y = Math.sin(t * 0.5) * 0.15;
+      pMat.opacity = 0.5 + Math.sin(t * 2) * 0.3;
+      renderer.render(scene, camera);
+    })(0);
+  </script>
 </body>
 </html>
