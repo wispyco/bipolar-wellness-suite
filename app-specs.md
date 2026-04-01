@@ -140,8 +140,23 @@ The master dashboard pulling concepts from all 11 apps.
 - Insights engine highlighting patterns across all domains
 - Navigation hub to jump into any specific app
 
+## Homepage Update Instructions
+When adding a new app, update the hub at site/index.html:
+1. Change the app's `<div class="app-list-card app-list-card--coming">` to `<a href="apps/XX-name/index.html" class="app-list-card app-list-card--active">`
+2. Change `</div>` closing tag to `</a>`
+3. Replace `<span class="badge badge-coming">Coming Soon</span>` with `<span class="badge badge-active"><svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg> Active</span>`
+4. Add arrow SVG to the meta section: `<svg class="app-list-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`
+5. Update the count in `<span class="hub-list-section__count">X of 12 active</span>`
+
 ## Deployment Commands
+Deploy to BOTH Vercel (spyro.health) and S3:
 ```bash
+# 1. Deploy to Vercel (spyro.health) — run from site/ directory
+cd /home/user/workspace/bipolar-wellness-suite/site
+NODE_TLS_REJECT_UNAUTHORIZED=0 npx vercel --token $VERCEL_TOKEN --prod --yes
+# Use api_credentials=["vercel"]
+
+# 2. Deploy to S3 preview
 deploy_website(project_path="/home/user/workspace/bipolar-wellness-suite/site", site_name="Bipolar Wellness Suite", entry_point="index.html")
 ```
 
@@ -153,4 +168,5 @@ git config user.name "Anders Kitson"
 git add -A
 git commit -m "App X: [name]"
 git push origin main
+# Use api_credentials=["github"]
 ```

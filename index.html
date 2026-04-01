@@ -3,310 +3,726 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spyro Health — Bipolar Wellness Suite</title>
-  <meta name="description" content="12 research-backed web tools for understanding and managing bipolar disorder. Daily mood tracking, sleep analysis, cognitive journaling, and more.">
-  <meta property="og:title" content="Spyro Health — Bipolar Wellness Suite">
-  <meta property="og:description" content="12 research-backed tools for bipolar disorder self-management, grounded in CBT, IPSRT, chronotherapy, and psychoeducation.">
+  <title>Spyro | AI Agent Research Lab</title>
+  <meta name="description" content="On a mission to cure Bipolar Disorder through advanced AI research and autonomous agent systems. 12 research-backed wellness tools.">
+  <meta property="og:title" content="Spyro | AI Agent Research Lab">
+  <meta property="og:description" content="On a mission to cure Bipolar Disorder through advanced AI research and autonomous agent systems.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.spyro.health">
-  <link rel="stylesheet" href="shared/styles.css">
-  <link rel="stylesheet" href="shared/hub.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 16c0-5 3.5-9 8-9s6 3 4 9c-2 6-2 9 4 9s8-4 8-9' fill='none' stroke='%233B5998' stroke-width='3' stroke-linecap='round'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 16c0-5 3.5-9 8-9s6 3 4 9c-2 6-2 9 4 9s8-4 8-9' fill='none' stroke='%239333ea' stroke-width='3' stroke-linecap='round'/></svg>">
+  <style>
+    /* ============================================
+       SPYRO HERO SECTION — Original Landing Page
+       ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* --- Spyro Hero --- */
+    .spyro-hero {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      background: #0a0014;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+    }
+
+    .spyro-hero__bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(88, 28, 135, 0.5), #0a0014 50%, rgba(88, 28, 135, 0.3));
+    }
+
+    .spyro-hero__glow-1 {
+      position: absolute;
+      top: 0;
+      left: 25%;
+      height: 500px;
+      width: 500px;
+      border-radius: 50%;
+      background: rgba(147, 51, 234, 0.2);
+      filter: blur(120px);
+    }
+
+    .spyro-hero__glow-2 {
+      position: absolute;
+      bottom: 0;
+      right: 25%;
+      height: 400px;
+      width: 400px;
+      border-radius: 50%;
+      background: rgba(139, 92, 246, 0.15);
+      filter: blur(100px);
+    }
+
+    .spyro-hero__content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .spyro-hero__logo {
+      margin-bottom: 2rem;
+    }
+
+    .spyro-hero__logo img {
+      height: auto;
+      width: 180px;
+      filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.5));
+    }
+
+    .spyro-hero__title {
+      font-size: clamp(2.25rem, 5vw, 3.75rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, #c084fc, #a78bfa, #d8b4fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+    }
+
+    .spyro-hero__desc {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(216, 180, 254, 0.8);
+      max-width: 36rem;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .spyro-hero__cta {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      background: linear-gradient(to right, #9333ea, #7c3aed);
+      color: white;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      margin-bottom: 1.5rem;
+    }
+
+    .spyro-hero__cta:hover {
+      background: linear-gradient(to right, #a855f7, #8b5cf6);
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.4);
+    }
+
+    .spyro-hero__tagline {
+      font-size: 0.875rem;
+      color: rgba(168, 85, 247, 0.6);
+      margin-top: 1rem;
+    }
+
+    .spyro-hero__scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(168, 85, 247, 0.5);
+      font-size: 0.75rem;
+      text-decoration: none;
+      transition: color 0.3s;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .spyro-hero__scroll:hover {
+      color: rgba(168, 85, 247, 0.8);
+    }
+
+    .spyro-hero__scroll svg {
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* ============================================
+       WELLNESS TOOLKIT SECTION
+       ============================================ */
+    :root {
+      --color-primary: #3B5998;
+      --color-secondary: #7C6DAF;
+      --color-accent: #E8A838;
+      --color-success: #5B8C5A;
+      --color-warning: #D4776B;
+      --color-bg: #FAFAF7;
+      --color-surface: #FFFFFF;
+      --color-border: #E5E3DE;
+      --color-divider: #EDEBE7;
+      --color-text: #2D2B3A;
+      --color-text-muted: #6E6B7B;
+      --color-text-faint: #A8A5B3;
+      --color-text-inverse: #FAFAF7;
+      --color-primary-faded: rgba(59, 89, 152, 0.1);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Inter', sans-serif;
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      --shadow-sm: 0 1px 2px rgba(45, 43, 58, 0.06);
+      --shadow-md: 0 4px 12px rgba(45, 43, 58, 0.08);
+      --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+    }
+
+    .wellness-section {
+      background: var(--color-bg);
+      color: var(--color-text);
+      padding: clamp(3rem, 6vw, 5rem) 0;
+    }
+
+    .wellness-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .wellness-header {
+      text-align: center;
+      margin-bottom: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .wellness-header__wave {
+      display: inline-flex;
+      margin-bottom: 1.25rem;
+      color: var(--color-primary);
+    }
+    .wellness-header__wave svg {
+      width: clamp(48px, 7vw, 72px);
+      height: auto;
+    }
+
+    .wellness-header__title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      color: var(--color-text);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    .wellness-header__subtitle {
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      max-width: 48ch;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* List header */
+    .list-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .list-header__title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+    }
+
+    .list-header__count {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* App list cards */
+    .app-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .app-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      display: grid;
+      grid-template-columns: 28px 44px 1fr auto;
+      align-items: center;
+      gap: 1.25rem;
+      transition: all var(--transition-interactive);
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+
+    a.app-card:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    a.app-card::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 60%;
+      background: linear-gradient(180deg, var(--color-primary), var(--color-secondary));
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+
+    .app-card--dim {
+      opacity: 0.55;
+    }
+    .app-card--dim:hover {
+      opacity: 0.7;
+    }
+
+    .app-card__num {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-text-faint);
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .app-card__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-primary-faded);
+      color: var(--color-primary);
+      flex-shrink: 0;
+      transition: all var(--transition-interactive);
+    }
+    a.app-card:hover .app-card__icon {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+    }
+    .app-card__icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .app-card__body {
+      min-width: 0;
+    }
+    .app-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      line-height: 1.3;
+      margin-bottom: 0.125rem;
+    }
+    .app-card__desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+
+    .app-card__meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: var(--text-xs);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .badge-active {
+      background: rgba(91, 140, 90, 0.12);
+      color: var(--color-success);
+    }
+    .badge-coming {
+      background: rgba(45, 43, 58, 0.06);
+      color: var(--color-text-faint);
+    }
+    .badge-research {
+      background: rgba(124, 109, 175, 0.1);
+      color: var(--color-secondary);
+    }
+
+    .app-card__arrow {
+      width: 20px;
+      height: 20px;
+      color: var(--color-text-faint);
+      transition: all var(--transition-interactive);
+    }
+    a.app-card:hover .app-card__arrow {
+      color: var(--color-primary);
+      transform: translateX(3px);
+    }
+
+    /* Research section */
+    .research {
+      margin-top: clamp(3rem, 5vw, 4rem);
+      padding-top: clamp(2rem, 4vw, 3rem);
+      border-top: 1px solid var(--color-divider);
+    }
+    .research__header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .research__title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      margin-bottom: 0.5rem;
+    }
+    .research__subtitle {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      max-width: 50ch;
+      margin: 0 auto;
+    }
+    .research__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .research__card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+    }
+    .research__card-icon {
+      width: 32px;
+      height: 32px;
+      color: var(--color-secondary);
+      margin-bottom: 1rem;
+    }
+    .research__card-icon svg { width: 100%; height: 100%; }
+    .research__card-title {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      margin-bottom: 0.5rem;
+    }
+    .research__card-text {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+    }
+
+    /* Footer */
+    .wellness-footer {
+      background: var(--color-bg);
+      padding: 2rem 0;
+      border-top: 1px solid var(--color-divider);
+    }
+    .wellness-footer p {
+      max-width: 60ch;
+      margin: 0 auto;
+      text-align: center;
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+      padding: 0 1.5rem;
+    }
+
+    /* Animation */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .app-card { animation: fadeInUp 0.4s ease-out backwards; }
+    .app-card:nth-child(1)  { animation-delay: 0.03s; }
+    .app-card:nth-child(2)  { animation-delay: 0.06s; }
+    .app-card:nth-child(3)  { animation-delay: 0.09s; }
+    .app-card:nth-child(4)  { animation-delay: 0.12s; }
+    .app-card:nth-child(5)  { animation-delay: 0.15s; }
+    .app-card:nth-child(6)  { animation-delay: 0.18s; }
+    .app-card:nth-child(7)  { animation-delay: 0.21s; }
+    .app-card:nth-child(8)  { animation-delay: 0.24s; }
+    .app-card:nth-child(9)  { animation-delay: 0.27s; }
+    .app-card:nth-child(10) { animation-delay: 0.30s; }
+    .app-card:nth-child(11) { animation-delay: 0.33s; }
+    .app-card:nth-child(12) { animation-delay: 0.36s; }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .app-card {
+        grid-template-columns: 28px 36px 1fr;
+        padding: 1rem;
+        gap: 0.75rem;
+      }
+      .app-card__icon { width: 36px; height: 36px; }
+      .app-card__icon svg { width: 18px; height: 18px; }
+      .app-card__meta { grid-column: 2 / -1; }
+      .app-card__arrow { display: none; }
+      .app-card__desc { font-size: var(--text-xs); }
+    }
+  </style>
 </head>
 <body>
 
-  <a href="#main" class="sr-only" style="position:absolute;top:var(--space-2);left:var(--space-2);z-index:1000;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);font-size:var(--text-sm);" onfocus="this.style.clip='auto';this.style.width='auto';this.style.height='auto';this.style.overflow='visible'" onblur="this.style.clip='rect(0,0,0,0)';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden'">Skip to content</a>
+  <!-- ======================================================
+       SECTION 1: Original Spyro Hero Landing
+       ====================================================== -->
+  <section class="spyro-hero">
+    <div class="spyro-hero__bg"></div>
+    <div class="spyro-hero__glow-1"></div>
+    <div class="spyro-hero__glow-2"></div>
 
-  <!-- Navigation -->
-  <nav class="site-nav" role="navigation" aria-label="Main navigation">
-    <div class="container">
-      <a href="index.html" class="site-nav__logo" aria-label="Spyro Health home">
-        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
-          <path d="M3 18c0-6 4-12 9-12s7 4 6 12c-1 8-1 12 6 12s9-6 9-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="3" cy="18" r="2" fill="currentColor" opacity="0.4"/>
-          <circle cx="33" cy="18" r="2" fill="currentColor" opacity="0.4"/>
-        </svg>
-        <span class="site-nav__logo-text">Spyro Health</span>
-      </a>
-      <div class="site-nav__actions">
-        <button class="btn-icon" data-theme-toggle aria-label="Toggle dark mode"></button>
+    <div class="spyro-hero__content">
+      <div class="spyro-hero__logo">
+        <img src="logo.png" alt="Spyro Logo" width="180" height="180">
       </div>
+      <h1 class="spyro-hero__title">AI Agent Research Lab</h1>
+      <p class="spyro-hero__desc">On a mission to cure Bipolar Disorder through advanced AI research and autonomous agent systems.</p>
+      <a href="https://tally.so/r/dWjA8V" target="_blank" rel="noopener noreferrer" class="spyro-hero__cta">Join Research</a>
+      <p class="spyro-hero__tagline">Pioneering the future of mental health treatment</p>
     </div>
-  </nav>
 
-  <main id="main">
-    <!-- Hero -->
-    <section class="hub-hero">
-      <div class="container">
-        <div class="hub-hero__logo">
-          <svg viewBox="0 0 120 60" fill="none" aria-label="Spyro Health logo">
+    <a href="#toolkit" class="spyro-hero__scroll">
+      Research Tools
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </a>
+  </section>
+
+  <!-- ======================================================
+       SECTION 2: Bipolar Wellness Toolkit
+       ====================================================== -->
+  <section class="wellness-section" id="toolkit">
+    <div class="wellness-container">
+
+      <div class="wellness-header">
+        <div class="wellness-header__wave">
+          <svg viewBox="0 0 120 60" fill="none">
             <defs>
-              <linearGradient id="wave-grad" x1="0" y1="0" x2="120" y2="0" gradientUnits="userSpaceOnUse">
+              <linearGradient id="wg" x1="0" y1="0" x2="120" y2="0" gradientUnits="userSpaceOnUse">
                 <stop offset="0%" stop-color="var(--color-primary)"/>
                 <stop offset="50%" stop-color="var(--color-secondary)"/>
                 <stop offset="100%" stop-color="var(--color-primary)"/>
               </linearGradient>
             </defs>
-            <path d="M6 30 C6 12, 22 6, 34 6 C46 6, 46 24, 44 36 C42 48, 42 54, 60 54 C78 54, 78 48, 76 36 C74 24, 74 6, 86 6 C98 6, 114 12, 114 30" 
-                  stroke="url(#wave-grad)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-            <circle cx="34" cy="6" r="3.5" fill="var(--color-primary)" opacity="0.3"/>
-            <circle cx="60" cy="54" r="3.5" fill="var(--color-secondary)" opacity="0.3"/>
-            <circle cx="86" cy="6" r="3.5" fill="var(--color-primary)" opacity="0.3"/>
-            <line x1="2" y1="30" x2="118" y2="30" stroke="var(--color-text-faint)" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.5"/>
+            <path d="M6 30 C6 12, 22 6, 34 6 C46 6, 46 24, 44 36 C42 48, 42 54, 60 54 C78 54, 78 48, 76 36 C74 24, 74 6, 86 6 C98 6, 114 12, 114 30" stroke="url(#wg)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <circle cx="34" cy="6" r="3" fill="var(--color-primary)" opacity="0.3"/>
+            <circle cx="60" cy="54" r="3" fill="var(--color-secondary)" opacity="0.3"/>
+            <circle cx="86" cy="6" r="3" fill="var(--color-primary)" opacity="0.3"/>
           </svg>
         </div>
-        <h1 class="hub-hero__title">Bipolar Wellness Suite</h1>
-        <p class="hub-hero__subtitle">12 research-backed tools for understanding and managing bipolar disorder</p>
+        <h2 class="wellness-header__title">Bipolar Wellness Suite</h2>
+        <p class="wellness-header__subtitle">12 research-backed tools for understanding and managing bipolar disorder</p>
       </div>
-    </section>
 
-    <!-- App List -->
-    <section class="hub-list-section" aria-label="App collection">
-      <div class="container">
-        <div class="hub-list-section__header">
-          <h2 class="hub-list-section__title">Your Toolkit</h2>
-          <span class="hub-list-section__count">1 of 12 active</span>
+      <div class="list-header">
+        <h3 class="list-header__title">Your Toolkit</h3>
+        <span class="list-header__count">1 of 12 active</span>
+      </div>
+
+      <div class="app-list">
+
+        <!-- App 1: ACTIVE -->
+        <a href="apps/01-mood-tracker/index.html" class="app-card">
+          <span class="app-card__num">01</span>
+          <div class="app-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div class="app-card__body">
+            <h4 class="app-card__title">Mood Spectrum Tracker</h4>
+            <p class="app-card__desc">Daily mood charting using the Life Chart Method — a validated clinical tool for bipolar monitoring.</p>
+          </div>
+          <div class="app-card__meta">
+            <span class="badge badge-active"><svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg> Active</span>
+            <span class="badge badge-research">Life Chart Method</span>
+            <svg class="app-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </a>
+
+        <!-- App 2 -->
+        <div class="app-card app-card--dim">
+          <span class="app-card__num">02</span>
+          <div class="app-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="app-card__body">
+            <h4 class="app-card__title">Circadian Rhythm Analyzer</h4>
+            <p class="app-card__desc">Track sleep/wake patterns and their impact on mood stability over time.</p>
+          </div>
+          <div class="app-card__meta"><span class="badge badge-coming">Coming Soon</span><span class="badge badge-research">Chronobiology</span></div>
         </div>
 
-        <div class="app-list">
-
-          <!-- App 1: Mood Spectrum Tracker — ACTIVE -->
-          <a href="apps/01-mood-tracker/index.html" class="app-list-card app-list-card--active" aria-label="Open Mood Spectrum Tracker">
-            <span class="app-list-card__number">01</span>
-            <div class="app-list-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <div class="app-list-card__content">
-              <h3 class="app-list-card__title">Mood Spectrum Tracker</h3>
-              <p class="app-list-card__desc">Daily mood charting using the Life Chart Method — a validated clinical tool for bipolar monitoring.</p>
-            </div>
-            <div class="app-list-card__meta">
-              <span class="badge badge-active"><svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg> Active</span>
-              <span class="badge badge-research">Life Chart Method</span>
-              <svg class="app-list-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-          </a>
-
-          <!-- App 2: Circadian Rhythm Analyzer -->
-          <div class="app-list-card app-list-card--coming">
-            <span class="app-list-card__number">02</span>
-            <div class="app-list-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <div class="app-list-card__content">
-              <h3 class="app-list-card__title">Circadian Rhythm Analyzer</h3>
-              <p class="app-list-card__desc">Track sleep/wake patterns and their impact on mood stability over time.</p>
-            </div>
-            <div class="app-list-card__meta">
-              <span class="badge badge-coming">Coming Soon</span>
-              <span class="badge badge-research">Chronobiology</span>
-            </div>
+        <!-- App 3 -->
+        <div class="app-card app-card--dim">
+          <span class="app-card__num">03</span>
+          <div class="app-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div class="app-card__body">
+            <h4 class="app-card__title">Cognitive Patterns Journal</h4>
+            <p class="app-card__desc">CBT thought records for identifying and restructuring cognitive distortions.</p>
           </div>
-
-          <!-- App 3: Cognitive Patterns Journal -->
-          <div class="app-list-card app-list-card--coming">
-            <span class="app-list-card__number">03</span>
-            <div class="app-list-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            </div>
-            <div class="app-list-card__content">
-              <h3 class="app-list-card__title">Cognitive Patterns Journal</h3>
-              <p class="app-list-card__desc">CBT thought records for identifying and restructuring cognitive distortions.</p>
-            </div>
-            <div class="app-list-card__meta">
-              <span class="badge badge-coming">Coming Soon</span>
-              <span class="badge badge-research">CBT</span>
-            </div>
-          </div>
-
-          <!-- App 4: Early Warning Detector -->
-          <div class="app-list-card app-list-card--coming">
-            <span class="app-list-card__number">04</span>
-            <div class="app-list-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            </div>
-            <div class="app-list-card__content">
-              <h3 class="app-list-card__title">Early Warning Detector</h3>
-              <p class="app-list-card__desc">Monitor personalized prodromal symptoms to catch episodes early.</p>
-            </div>
-            <div class="app-list-card__meta">
-              <span class="badge badge-coming">Coming Soon</span>
-              <span class="badge badge-research">Prodromal Detection</span>
-            </div>
-          </div>
-
-          <!-- App 5: Social Rhythm Stabilizer -->
-          <div class="app-list-card app-list-card--coming">
-            <span class="app-list-card__number">05</span>
-            <div class="app-list-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            </div>
-            <div class="app-list-card__content">
-              <h3 class="app-list-card__title">Social Rhythm Stabilizer</h3>
-              <p class="app-list-card__desc">IPSRT-based daily routine scheduling to stabilize social rhythms.</p>
-            </div>
-            <div class="app-list-card__meta">
-              <span class="badge badge-coming">Coming Soon</span>
-              <span class="badge badge-research">IPSRT</span>
-            </div>
-          </div>
-
-          <!-- App 6: Medication Tracker -->
-          <div class="app-list-card app-list-card--coming">
-            <span class="app-list-card__number">06</span>
-            <div class="app-list-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-            </div>
-            <div class="app-list-card__content">
-              <h3 class="app-list-card__title">Medication Tracker</h3>
-              <p class="app-list-card__desc">Adherence logging with side effect monitoring and pattern analysis.</p>
-            </div>
-            <div class="app-list-card__meta">
-              <span class="badge badge-coming">Coming Soon</span>
-              <span class="badge badge-research">Adherence</span>
-            </div>
-          </div>
-
-          <!-- App 7: Quality of Life Dashboard -->
-          <div class="app-list-card app-list-card--coming">
-            <span class="app-list-card__number">07</span>
-            <div class="app-list-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-            </div>
-            <div class="app-list-card__content">
-              <h3 class="app-list-card__title">Quality of Life Dashboard</h3>
-              <p class="app-list-card__desc">12-domain QoL self-assessment based on the QoL.BD instrument.</p>
-            </div>
-            <div class="app-list-card__meta">
-              <span class="badge badge-coming">Coming Soon</span>
-              <span class="badge badge-research">QoL.BD</span>
-            </div>
-          </div>
-
-          <!-- App 8: Psychoeducation Library -->
-          <div class="app-list-card app-list-card--coming">
-            <span class="app-list-card__number">08</span>
-            <div class="app-list-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-            </div>
-            <div class="app-list-card__content">
-              <h3 class="app-list-card__title">Psychoeducation Library</h3>
-              <p class="app-list-card__desc">Evidence-based learning modules on bipolar disorder and its management.</p>
-            </div>
-            <div class="app-list-card__meta">
-              <span class="badge badge-coming">Coming Soon</span>
-              <span class="badge badge-research">Psychoeducation</span>
-            </div>
-          </div>
-
-          <!-- App 9: Chronotherapy Planner -->
-          <div class="app-list-card app-list-card--coming">
-            <span class="app-list-card__number">09</span>
-            <div class="app-list-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
-            </div>
-            <div class="app-list-card__content">
-              <h3 class="app-list-card__title">Chronotherapy Planner</h3>
-              <p class="app-list-card__desc">Bright light therapy and wake therapy scheduling for mood regulation.</p>
-            </div>
-            <div class="app-list-card__meta">
-              <span class="badge badge-coming">Coming Soon</span>
-              <span class="badge badge-research">Chronotherapy</span>
-            </div>
-          </div>
-
-          <!-- App 10: Crisis & Support Planner -->
-          <div class="app-list-card app-list-card--coming">
-            <span class="app-list-card__number">10</span>
-            <div class="app-list-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            </div>
-            <div class="app-list-card__content">
-              <h3 class="app-list-card__title">Crisis & Support Planner</h3>
-              <p class="app-list-card__desc">Safety planning, crisis contacts, and support network management.</p>
-            </div>
-            <div class="app-list-card__meta">
-              <span class="badge badge-coming">Coming Soon</span>
-              <span class="badge badge-research">Safety Planning</span>
-            </div>
-          </div>
-
-          <!-- App 11: Functional Remediation -->
-          <div class="app-list-card app-list-card--coming">
-            <span class="app-list-card__number">11</span>
-            <div class="app-list-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            </div>
-            <div class="app-list-card__content">
-              <h3 class="app-list-card__title">Functional Remediation</h3>
-              <p class="app-list-card__desc">Cognitive training exercises and occupational goal tracking.</p>
-            </div>
-            <div class="app-list-card__meta">
-              <span class="badge badge-coming">Coming Soon</span>
-              <span class="badge badge-research">Neurocognitive</span>
-            </div>
-          </div>
-
-          <!-- App 12: Command Center -->
-          <div class="app-list-card app-list-card--coming">
-            <span class="app-list-card__number">12</span>
-            <div class="app-list-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            </div>
-            <div class="app-list-card__content">
-              <h3 class="app-list-card__title">Command Center</h3>
-              <p class="app-list-card__desc">Unified dashboard integrating insights from all 12 tools.</p>
-            </div>
-            <div class="app-list-card__meta">
-              <span class="badge badge-coming">Coming Soon</span>
-              <span class="badge badge-research">Integration</span>
-            </div>
-          </div>
-
-        </div><!-- .app-list -->
-      </div>
-    </section>
-
-    <!-- Research Foundation -->
-    <section class="research-section" aria-label="Research foundation">
-      <div class="container">
-        <div class="research-section__header">
-          <h2 class="research-section__title">Research Foundation</h2>
-          <p class="research-section__subtitle">Every tool in this suite is grounded in peer-reviewed clinical research and validated assessment instruments.</p>
+          <div class="app-card__meta"><span class="badge badge-coming">Coming Soon</span><span class="badge badge-research">CBT</span></div>
         </div>
-        <div class="research-grid">
-          <div class="research-card">
-            <div class="research-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <h3 class="research-card__title">Life Chart Method</h3>
-            <p class="research-card__text">Developed by the NIMH, the Life Chart Method is a validated prospective daily mood monitoring tool used extensively in bipolar disorder research and clinical practice since the 1990s.</p>
+
+        <!-- App 4 -->
+        <div class="app-card app-card--dim">
+          <span class="app-card__num">04</span>
+          <div class="app-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div class="app-card__body">
+            <h4 class="app-card__title">Early Warning Detector</h4>
+            <p class="app-card__desc">Monitor personalized prodromal symptoms to catch episodes early.</p>
           </div>
-          <div class="research-card">
-            <div class="research-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-            </div>
-            <h3 class="research-card__title">Evidence-Based Therapies</h3>
-            <p class="research-card__text">Tools incorporate principles from CBT, IPSRT, and functional remediation — all with demonstrated efficacy for bipolar disorder in randomized controlled trials.</p>
+          <div class="app-card__meta"><span class="badge badge-coming">Coming Soon</span><span class="badge badge-research">Prodromal Detection</span></div>
+        </div>
+
+        <!-- App 5 -->
+        <div class="app-card app-card--dim">
+          <span class="app-card__num">05</span>
+          <div class="app-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div class="app-card__body">
+            <h4 class="app-card__title">Social Rhythm Stabilizer</h4>
+            <p class="app-card__desc">IPSRT-based daily routine scheduling to stabilize social rhythms.</p>
           </div>
-          <div class="research-card">
-            <div class="research-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-            </div>
-            <h3 class="research-card__title">Self-Management Science</h3>
-            <p class="research-card__text">Structured self-monitoring and psychoeducation improve outcomes in bipolar disorder, reducing relapse rates and improving quality of life alongside clinical care.</p>
+          <div class="app-card__meta"><span class="badge badge-coming">Coming Soon</span><span class="badge badge-research">IPSRT</span></div>
+        </div>
+
+        <!-- App 6 -->
+        <div class="app-card app-card--dim">
+          <span class="app-card__num">06</span>
+          <div class="app-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
+          <div class="app-card__body">
+            <h4 class="app-card__title">Medication Tracker</h4>
+            <p class="app-card__desc">Adherence logging with side effect monitoring and pattern analysis.</p>
+          </div>
+          <div class="app-card__meta"><span class="badge badge-coming">Coming Soon</span><span class="badge badge-research">Adherence</span></div>
+        </div>
+
+        <!-- App 7 -->
+        <div class="app-card app-card--dim">
+          <span class="app-card__num">07</span>
+          <div class="app-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div>
+          <div class="app-card__body">
+            <h4 class="app-card__title">Quality of Life Dashboard</h4>
+            <p class="app-card__desc">12-domain QoL self-assessment based on the QoL.BD instrument.</p>
+          </div>
+          <div class="app-card__meta"><span class="badge badge-coming">Coming Soon</span><span class="badge badge-research">QoL.BD</span></div>
+        </div>
+
+        <!-- App 8 -->
+        <div class="app-card app-card--dim">
+          <span class="app-card__num">08</span>
+          <div class="app-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="app-card__body">
+            <h4 class="app-card__title">Psychoeducation Library</h4>
+            <p class="app-card__desc">Evidence-based learning modules on bipolar disorder and its management.</p>
+          </div>
+          <div class="app-card__meta"><span class="badge badge-coming">Coming Soon</span><span class="badge badge-research">Psychoeducation</span></div>
+        </div>
+
+        <!-- App 9 -->
+        <div class="app-card app-card--dim">
+          <span class="app-card__num">09</span>
+          <div class="app-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div>
+          <div class="app-card__body">
+            <h4 class="app-card__title">Chronotherapy Planner</h4>
+            <p class="app-card__desc">Bright light therapy and wake therapy scheduling for mood regulation.</p>
+          </div>
+          <div class="app-card__meta"><span class="badge badge-coming">Coming Soon</span><span class="badge badge-research">Chronotherapy</span></div>
+        </div>
+
+        <!-- App 10 -->
+        <div class="app-card app-card--dim">
+          <span class="app-card__num">10</span>
+          <div class="app-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <div class="app-card__body">
+            <h4 class="app-card__title">Crisis & Support Planner</h4>
+            <p class="app-card__desc">Safety planning, crisis contacts, and support network management.</p>
+          </div>
+          <div class="app-card__meta"><span class="badge badge-coming">Coming Soon</span><span class="badge badge-research">Safety Planning</span></div>
+        </div>
+
+        <!-- App 11 -->
+        <div class="app-card app-card--dim">
+          <span class="app-card__num">11</span>
+          <div class="app-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <div class="app-card__body">
+            <h4 class="app-card__title">Functional Remediation</h4>
+            <p class="app-card__desc">Cognitive training exercises and occupational goal tracking.</p>
+          </div>
+          <div class="app-card__meta"><span class="badge badge-coming">Coming Soon</span><span class="badge badge-research">Neurocognitive</span></div>
+        </div>
+
+        <!-- App 12 -->
+        <div class="app-card app-card--dim">
+          <span class="app-card__num">12</span>
+          <div class="app-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <div class="app-card__body">
+            <h4 class="app-card__title">Command Center</h4>
+            <p class="app-card__desc">Unified dashboard integrating insights from all 12 tools.</p>
+          </div>
+          <div class="app-card__meta"><span class="badge badge-coming">Coming Soon</span><span class="badge badge-research">Integration</span></div>
+        </div>
+
+      </div>
+
+      <!-- Research Foundation -->
+      <div class="research">
+        <div class="research__header">
+          <h3 class="research__title">Research Foundation</h3>
+          <p class="research__subtitle">Every tool is grounded in peer-reviewed clinical research and validated assessment instruments.</p>
+        </div>
+        <div class="research__grid">
+          <div class="research__card">
+            <div class="research__card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <h4 class="research__card-title">Life Chart Method</h4>
+            <p class="research__card-text">Developed by the NIMH, the Life Chart Method is a validated daily mood monitoring tool used in bipolar disorder research since the 1990s.</p>
+          </div>
+          <div class="research__card">
+            <div class="research__card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+            <h4 class="research__card-title">Evidence-Based Therapies</h4>
+            <p class="research__card-text">Incorporates CBT, IPSRT, and functional remediation — all with demonstrated efficacy in randomized controlled trials.</p>
+          </div>
+          <div class="research__card">
+            <div class="research__card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></div>
+            <h4 class="research__card-title">Self-Management Science</h4>
+            <p class="research__card-text">Structured self-monitoring and psychoeducation reduce relapse rates and improve quality of life alongside clinical care.</p>
           </div>
         </div>
       </div>
-    </section>
-  </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p class="site-footer__disclaimer">This suite is for educational and self-management purposes. It is not a substitute for professional medical care. If you are in crisis, please contact your healthcare provider or call the 988 Suicide & Crisis Lifeline.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="wellness-footer">
+    <div class="wellness-container">
+      <p>This suite is for educational and self-management purposes. It is not a substitute for professional medical care. If you are in crisis, please contact your healthcare provider or call the 988 Suicide & Crisis Lifeline.</p>
     </div>
   </footer>
 
-  <script src="shared/nav.js"></script>
 </body>
 </html>
