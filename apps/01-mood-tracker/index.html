@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mood Spectrum Tracker — Bipolar Wellness Suite</title>
+  <meta name="description" content="Daily mood charting using the Life Chart Method. Track mood, sleep, medication, and identify patterns over time.">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 16c0-5 3.5-9 8-9s6 3 4 9c-2 6-2 9 4 9s8-4 8-9' fill='none' stroke='%233B5998' stroke-width='3' stroke-linecap='round'/></svg>">
+</head>
+<body>
+
+  <!-- Skip to content -->
+  <a href="#main" class="sr-only" style="position:absolute;top:var(--space-2);left:var(--space-2);z-index:1000;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);font-size:var(--text-sm);" onfocus="this.style.clip='auto';this.style.width='auto';this.style.height='auto';this.style.overflow='visible'" onblur="this.style.clip='rect(0,0,0,0)';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden'">Skip to content</a>
+
+  <!-- Navigation -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../../index.html" class="site-nav__logo" aria-label="Back to Bipolar Wellness Suite">
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <path d="M3 18c0-6 4-12 9-12s7 4 6 12c-1 8-1 12 6 12s9-6 9-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="3" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+          <circle cx="33" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+        </svg>
+        <span class="site-nav__logo-text">Bipolar Wellness Suite</span>
+      </a>
+      <div class="site-nav__actions">
+        <button class="btn-icon" data-theme-toggle aria-label="Toggle dark mode"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main" class="app-layout">
+    <div class="container">
+
+      <!-- App Header -->
+      <header class="app-header">
+        <div class="app-header__breadcrumb">
+          <a href="../../index.html">Suite</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span>Mood Tracker</span>
+        </div>
+        <h1 class="app-header__title">Mood Spectrum Tracker</h1>
+        <p class="app-header__subtitle">Daily mood charting based on the Life Chart Method — a validated NIMH tool for prospective mood monitoring in bipolar disorder.</p>
+      </header>
+
+      <!-- Tab Navigation -->
+      <div class="app-tabs" role="tablist" aria-label="App sections">
+        <button class="app-tab app-tab--active" role="tab" aria-selected="true" aria-controls="panel-entry" id="tab-entry" data-tab="entry">Log Entry</button>
+        <button class="app-tab" role="tab" aria-selected="false" aria-controls="panel-chart" id="tab-chart" data-tab="chart">Life Chart</button>
+        <button class="app-tab" role="tab" aria-selected="false" aria-controls="panel-summary" id="tab-summary" data-tab="summary">Weekly Summary</button>
+        <button class="app-tab" role="tab" aria-selected="false" aria-controls="panel-history" id="tab-history" data-tab="history">History</button>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- TAB 1: Log Entry -->
+      <!-- ============================================================ -->
+      <div class="tab-panel tab-panel--active" id="panel-entry" role="tabpanel" aria-labelledby="tab-entry">
+        <form class="mood-entry" id="moodEntryForm" novalidate>
+
+          <!-- Mood Scale -->
+          <div class="mood-entry__section">
+            <label class="mood-entry__label">
+              Mood Level
+              <span class="mood-entry__sublabel">-4 (severe depression) to +4 (severe mania)</span>
+            </label>
+            <div class="mood-slider-container">
+              <div class="mood-slider__scale-labels">
+                <span>Depression</span>
+                <span>Baseline</span>
+                <span>Mania</span>
+              </div>
+              <div class="mood-slider__track-wrapper">
+                <input type="range" class="mood-slider__input" id="moodSlider" min="-4" max="4" step="1" value="0" aria-label="Mood level from -4 to +4">
+              </div>
+              <div class="mood-slider__tick-labels">
+                <span>-4</span><span>-3</span><span>-2</span><span>-1</span><span>0</span><span>+1</span><span>+2</span><span>+3</span><span>+4</span>
+              </div>
+              <div class="mood-slider__value-display">
+                <div class="mood-slider__value-number" id="moodValueDisplay">0</div>
+                <div class="mood-slider__value-label" id="moodLabelDisplay">Baseline / Euthymia</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Optional Fields -->
+          <div class="mood-entry__section">
+            <label class="mood-entry__label">Additional Metrics</label>
+            <div class="optional-fields">
+
+              <!-- Sleep Hours -->
+              <div class="field-group">
+                <label for="sleepHours">Hours of Sleep</label>
+                <input type="number" id="sleepHours" min="0" max="24" step="0.5" placeholder="e.g., 7.5">
+              </div>
+
+              <!-- Medication -->
+              <div class="field-group">
+                <label>Medication Taken</label>
+                <div class="toggle-group" id="medToggle" role="radiogroup" aria-label="Medication taken">
+                  <button type="button" class="toggle-btn" data-value="yes" role="radio" aria-checked="false">Yes</button>
+                  <button type="button" class="toggle-btn" data-value="no" role="radio" aria-checked="false">No</button>
+                </div>
+              </div>
+
+              <!-- Energy -->
+              <div class="field-group">
+                <label>Energy Level</label>
+                <div class="rating-scale" id="energyScale" role="radiogroup" aria-label="Energy level 1 to 5">
+                  <button type="button" class="rating-scale__btn" data-value="1" role="radio" aria-checked="false">1</button>
+                  <button type="button" class="rating-scale__btn" data-value="2" role="radio" aria-checked="false">2</button>
+                  <button type="button" class="rating-scale__btn" data-value="3" role="radio" aria-checked="false">3</button>
+                  <button type="button" class="rating-scale__btn" data-value="4" role="radio" aria-checked="false">4</button>
+                  <button type="button" class="rating-scale__btn" data-value="5" role="radio" aria-checked="false">5</button>
+                </div>
+              </div>
+
+              <!-- Irritability -->
+              <div class="field-group">
+                <label>Irritability</label>
+                <div class="rating-scale" id="irritabilityScale" role="radiogroup" aria-label="Irritability level 1 to 5">
+                  <button type="button" class="rating-scale__btn" data-value="1" role="radio" aria-checked="false">1</button>
+                  <button type="button" class="rating-scale__btn" data-value="2" role="radio" aria-checked="false">2</button>
+                  <button type="button" class="rating-scale__btn" data-value="3" role="radio" aria-checked="false">3</button>
+                  <button type="button" class="rating-scale__btn" data-value="4" role="radio" aria-checked="false">4</button>
+                  <button type="button" class="rating-scale__btn" data-value="5" role="radio" aria-checked="false">5</button>
+                </div>
+              </div>
+
+              <!-- Anxiety -->
+              <div class="field-group">
+                <label>Anxiety</label>
+                <div class="rating-scale" id="anxietyScale" role="radiogroup" aria-label="Anxiety level 1 to 5">
+                  <button type="button" class="rating-scale__btn" data-value="1" role="radio" aria-checked="false">1</button>
+                  <button type="button" class="rating-scale__btn" data-value="2" role="radio" aria-checked="false">2</button>
+                  <button type="button" class="rating-scale__btn" data-value="3" role="radio" aria-checked="false">3</button>
+                  <button type="button" class="rating-scale__btn" data-value="4" role="radio" aria-checked="false">4</button>
+                  <button type="button" class="rating-scale__btn" data-value="5" role="radio" aria-checked="false">5</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div class="mood-entry__section">
+            <label class="mood-entry__label" for="entryNotes">Notes</label>
+            <textarea class="notes-field" id="entryNotes" placeholder="How are you feeling today? Any notable events, triggers, or observations..."></textarea>
+          </div>
+
+          <!-- Actions -->
+          <div class="mood-entry__actions">
+            <button type="submit" class="btn btn-accent">Save Entry</button>
+            <button type="reset" class="btn btn-secondary">Clear</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- TAB 2: Life Chart -->
+      <!-- ============================================================ -->
+      <div class="tab-panel" id="panel-chart" role="tabpanel" aria-labelledby="tab-chart">
+        <div class="chart-section">
+          <div class="chart-container">
+            <div class="chart-header">
+              <h2 class="chart-title">Life Chart</h2>
+              <div class="chart-legend">
+                <div class="chart-legend__item">
+                  <div class="chart-legend__dot" style="background: #2E86C1;"></div>
+                  <span>Depression</span>
+                </div>
+                <div class="chart-legend__item">
+                  <div class="chart-legend__dot" style="background: #5B8C5A;"></div>
+                  <span>Euthymia</span>
+                </div>
+                <div class="chart-legend__item">
+                  <div class="chart-legend__dot" style="background: #D4776B;"></div>
+                  <span>Mania</span>
+                </div>
+              </div>
+            </div>
+            <div class="chart-canvas-wrapper">
+              <canvas id="lifechart"></canvas>
+            </div>
+            <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-3);text-align:center;">Click any data point to view details for that day</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- TAB 3: Weekly Summary -->
+      <!-- ============================================================ -->
+      <div class="tab-panel" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary">
+        <div class="weekly-summary" id="weeklySummary">
+          <!-- JS will populate -->
+        </div>
+        <div class="chart-container" style="max-width:640px;">
+          <div class="chart-header">
+            <h2 class="chart-title">This Week's Mood Trend</h2>
+          </div>
+          <div class="chart-canvas-wrapper" style="height:200px;">
+            <canvas id="weeklySparkline"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- TAB 4: History -->
+      <!-- ============================================================ -->
+      <div class="tab-panel" id="panel-history" role="tabpanel" aria-labelledby="tab-history">
+        <div class="history-list" id="historyList">
+          <!-- JS will populate -->
+        </div>
+      </div>
+
+    </div><!-- .container -->
+  </main>
+
+  <!-- Day Detail Popup -->
+  <div class="day-detail-overlay" id="dayDetailOverlay"></div>
+  <div class="day-detail-popup" id="dayDetailPopup" role="dialog" aria-label="Day details">
+    <div class="day-detail__header">
+      <h3 class="day-detail__date" id="dayDetailDate"></h3>
+      <button class="day-detail__close" id="dayDetailClose" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="day-detail__mood" id="dayDetailMood"></div>
+    <div class="day-detail__stats" id="dayDetailStats"></div>
+    <div class="day-detail__notes" id="dayDetailNotes" style="display:none;"></div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">Entry saved successfully</div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__disclaimer">This suite is for educational and self-management purposes. It is not a substitute for professional medical care.</p>
+    </div>
+  </footer>
+
+  <script src="../../shared/nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

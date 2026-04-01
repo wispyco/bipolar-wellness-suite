@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bipolar Wellness Suite — Research-Backed Self-Management Tools</title>
+  <meta name="description" content="12 research-backed web tools for understanding and managing bipolar disorder. Daily mood tracking, sleep analysis, cognitive journaling, and more.">
+  <link rel="stylesheet" href="shared/styles.css">
+  <link rel="stylesheet" href="shared/hub.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 16c0-5 3.5-9 8-9s6 3 4 9c-2 6-2 9 4 9s8-4 8-9' fill='none' stroke='%233B5998' stroke-width='3' stroke-linecap='round'/></svg>">
+</head>
+<body>
+
+  <!-- Skip to content -->
+  <a href="#main" class="sr-only" style="position:absolute;top:var(--space-2);left:var(--space-2);z-index:1000;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);font-size:var(--text-sm);" onfocus="this.style.clip='auto';this.style.width='auto';this.style.height='auto';this.style.overflow='visible'" onblur="this.style.clip='rect(0,0,0,0)';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden'">Skip to content</a>
+
+  <!-- Navigation -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="index.html" class="site-nav__logo" aria-label="Bipolar Wellness Suite home">
+        <!-- Logo: Sine wave representing mood cycles -->
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <path d="M3 18c0-6 4-12 9-12s7 4 6 12c-1 8-1 12 6 12s9-6 9-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="3" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+          <circle cx="33" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+        </svg>
+        <span class="site-nav__logo-text">Bipolar Wellness Suite</span>
+      </a>
+      <div class="site-nav__actions">
+        <button class="btn-icon" data-theme-toggle aria-label="Toggle dark mode">
+          <!-- JS will inject icon -->
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- Hero Section -->
+    <section class="hub-hero">
+      <div class="container">
+        <div class="hub-hero__logo">
+          <!-- Large sine wave logo -->
+          <svg viewBox="0 0 120 60" fill="none" aria-label="Bipolar Wellness Suite logo">
+            <defs>
+              <linearGradient id="wave-grad" x1="0" y1="0" x2="120" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="var(--color-primary)"/>
+                <stop offset="50%" stop-color="var(--color-secondary)"/>
+                <stop offset="100%" stop-color="var(--color-primary)"/>
+              </linearGradient>
+            </defs>
+            <!-- Main wave path: represents the mood cycle / life chart -->
+            <path d="M6 30 C6 12, 22 6, 34 6 C46 6, 46 24, 44 36 C42 48, 42 54, 60 54 C78 54, 78 48, 76 36 C74 24, 74 6, 86 6 C98 6, 114 12, 114 30" 
+                  stroke="url(#wave-grad)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <!-- Dots at extremes -->
+            <circle cx="34" cy="6" r="3.5" fill="var(--color-primary)" opacity="0.3"/>
+            <circle cx="60" cy="54" r="3.5" fill="var(--color-secondary)" opacity="0.3"/>
+            <circle cx="86" cy="6" r="3.5" fill="var(--color-primary)" opacity="0.3"/>
+            <!-- Baseline -->
+            <line x1="2" y1="30" x2="118" y2="30" stroke="var(--color-text-faint)" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.5"/>
+          </svg>
+        </div>
+        <h1 class="hub-hero__title">Bipolar Wellness Suite</h1>
+        <p class="hub-hero__subtitle">12 research-backed tools for understanding and managing bipolar disorder</p>
+      </div>
+    </section>
+
+    <!-- App Grid -->
+    <section class="hub-grid-section" aria-label="App collection">
+      <div class="container">
+        <h2 class="hub-grid-section__title">Your Toolkit</h2>
+        <p class="hub-grid-section__desc">Each tool is grounded in clinical research and designed for daily self-management.</p>
+
+        <div class="hub-grid">
+
+          <!-- App 1: Mood Spectrum Tracker — ACTIVE -->
+          <a href="apps/01-mood-tracker/index.html" class="app-card app-card--active" aria-label="Open Mood Spectrum Tracker">
+            <div class="app-card__header">
+              <div class="app-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+              </div>
+              <div class="app-card__meta">
+                <div class="app-card__number">01</div>
+                <h3 class="app-card__title">Mood Spectrum Tracker</h3>
+              </div>
+            </div>
+            <p class="app-card__desc">Daily mood charting using the Life Chart Method (LCM) — a validated clinical tool for bipolar monitoring.</p>
+            <div class="app-card__footer">
+              <span class="badge badge-active">
+                <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
+                Active
+              </span>
+              <span class="badge badge-research">Life Chart Method</span>
+            </div>
+          </a>
+
+          <!-- App 2 -->
+          <div class="app-card app-card--coming">
+            <div class="app-card__header">
+              <div class="app-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <div class="app-card__meta">
+                <div class="app-card__number">02</div>
+                <h3 class="app-card__title">Circadian Rhythm Analyzer</h3>
+              </div>
+            </div>
+            <p class="app-card__desc">Track sleep/wake patterns and their impact on mood stability over time.</p>
+            <div class="app-card__footer">
+              <span class="badge badge-coming">Coming Soon</span>
+              <span class="badge badge-research">Chronobiology</span>
+            </div>
+          </div>
+
+          <!-- App 3 -->
+          <div class="app-card app-card--coming">
+            <div class="app-card__header">
+              <div class="app-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+                </svg>
+              </div>
+              <div class="app-card__meta">
+                <div class="app-card__number">03</div>
+                <h3 class="app-card__title">Cognitive Patterns Journal</h3>
+              </div>
+            </div>
+            <p class="app-card__desc">CBT thought records for identifying and restructuring cognitive distortions.</p>
+            <div class="app-card__footer">
+              <span class="badge badge-coming">Coming Soon</span>
+              <span class="badge badge-research">CBT</span>
+            </div>
+          </div>
+
+          <!-- App 4 -->
+          <div class="app-card app-card--coming">
+            <div class="app-card__header">
+              <div class="app-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+              </div>
+              <div class="app-card__meta">
+                <div class="app-card__number">04</div>
+                <h3 class="app-card__title">Early Warning Detector</h3>
+              </div>
+            </div>
+            <p class="app-card__desc">Monitor personalized prodromal symptoms to catch episodes early.</p>
+            <div class="app-card__footer">
+              <span class="badge badge-coming">Coming Soon</span>
+              <span class="badge badge-research">Prodromal Detection</span>
+            </div>
+          </div>
+
+          <!-- App 5 -->
+          <div class="app-card app-card--coming">
+            <div class="app-card__header">
+              <div class="app-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
+              <div class="app-card__meta">
+                <div class="app-card__number">05</div>
+                <h3 class="app-card__title">Social Rhythm Stabilizer</h3>
+              </div>
+            </div>
+            <p class="app-card__desc">IPSRT-based daily routine scheduling to stabilize social rhythms.</p>
+            <div class="app-card__footer">
+              <span class="badge badge-coming">Coming Soon</span>
+              <span class="badge badge-research">IPSRT</span>
+            </div>
+          </div>
+
+          <!-- App 6 -->
+          <div class="app-card app-card--coming">
+            <div class="app-card__header">
+              <div class="app-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                </svg>
+              </div>
+              <div class="app-card__meta">
+                <div class="app-card__number">06</div>
+                <h3 class="app-card__title">Medication Tracker</h3>
+              </div>
+            </div>
+            <p class="app-card__desc">Adherence logging with side effect monitoring and refill reminders.</p>
+            <div class="app-card__footer">
+              <span class="badge badge-coming">Coming Soon</span>
+              <span class="badge badge-research">Adherence</span>
+            </div>
+          </div>
+
+          <!-- App 7 -->
+          <div class="app-card app-card--coming">
+            <div class="app-card__header">
+              <div class="app-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>
+                </svg>
+              </div>
+              <div class="app-card__meta">
+                <div class="app-card__number">07</div>
+                <h3 class="app-card__title">Quality of Life Dashboard</h3>
+              </div>
+            </div>
+            <p class="app-card__desc">12-domain QoL self-assessment based on the QoL.BD instrument.</p>
+            <div class="app-card__footer">
+              <span class="badge badge-coming">Coming Soon</span>
+              <span class="badge badge-research">QoL.BD</span>
+            </div>
+          </div>
+
+          <!-- App 8 -->
+          <div class="app-card app-card--coming">
+            <div class="app-card__header">
+              <div class="app-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+              </div>
+              <div class="app-card__meta">
+                <div class="app-card__number">08</div>
+                <h3 class="app-card__title">Psychoeducation Library</h3>
+              </div>
+            </div>
+            <p class="app-card__desc">Evidence-based learning modules on bipolar disorder and its management.</p>
+            <div class="app-card__footer">
+              <span class="badge badge-coming">Coming Soon</span>
+              <span class="badge badge-research">Psychoeducation</span>
+            </div>
+          </div>
+
+          <!-- App 9 -->
+          <div class="app-card app-card--coming">
+            <div class="app-card__header">
+              <div class="app-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                </svg>
+              </div>
+              <div class="app-card__meta">
+                <div class="app-card__number">09</div>
+                <h3 class="app-card__title">Chronotherapy Planner</h3>
+              </div>
+            </div>
+            <p class="app-card__desc">Bright light therapy and wake therapy scheduling for mood regulation.</p>
+            <div class="app-card__footer">
+              <span class="badge badge-coming">Coming Soon</span>
+              <span class="badge badge-research">Chronotherapy</span>
+            </div>
+          </div>
+
+          <!-- App 10 -->
+          <div class="app-card app-card--coming">
+            <div class="app-card__header">
+              <div class="app-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </div>
+              <div class="app-card__meta">
+                <div class="app-card__number">10</div>
+                <h3 class="app-card__title">Crisis & Support Planner</h3>
+              </div>
+            </div>
+            <p class="app-card__desc">Safety planning, crisis contacts, and support network management.</p>
+            <div class="app-card__footer">
+              <span class="badge badge-coming">Coming Soon</span>
+              <span class="badge badge-research">Safety Planning</span>
+            </div>
+          </div>
+
+          <!-- App 11 -->
+          <div class="app-card app-card--coming">
+            <div class="app-card__header">
+              <div class="app-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </div>
+              <div class="app-card__meta">
+                <div class="app-card__number">11</div>
+                <h3 class="app-card__title">Functional Remediation</h3>
+              </div>
+            </div>
+            <p class="app-card__desc">Cognitive training exercises and occupational goal tracking.</p>
+            <div class="app-card__footer">
+              <span class="badge badge-coming">Coming Soon</span>
+              <span class="badge badge-research">Neurocognitive</span>
+            </div>
+          </div>
+
+          <!-- App 12 -->
+          <div class="app-card app-card--coming">
+            <div class="app-card__header">
+              <div class="app-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+              </div>
+              <div class="app-card__meta">
+                <div class="app-card__number">12</div>
+                <h3 class="app-card__title">Command Center</h3>
+              </div>
+            </div>
+            <p class="app-card__desc">Unified dashboard integrating insights from all 12 tools.</p>
+            <div class="app-card__footer">
+              <span class="badge badge-coming">Coming Soon</span>
+              <span class="badge badge-research">Integration</span>
+            </div>
+          </div>
+
+        </div><!-- .hub-grid -->
+      </div>
+    </section>
+
+    <!-- Research Foundation Section -->
+    <section class="research-section" aria-label="Research foundation">
+      <div class="container">
+        <div class="research-section__header">
+          <h2 class="research-section__title">Research Foundation</h2>
+          <p class="research-section__subtitle">Every tool in this suite is grounded in peer-reviewed clinical research and validated assessment instruments.</p>
+        </div>
+
+        <div class="research-grid">
+          <div class="research-card">
+            <div class="research-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <h3 class="research-card__title">Life Chart Method</h3>
+            <p class="research-card__text">Developed by the NIMH, the Life Chart Method is a validated prospective daily mood monitoring tool used extensively in bipolar disorder research and clinical practice since the 1990s.</p>
+          </div>
+
+          <div class="research-card">
+            <div class="research-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <h3 class="research-card__title">Evidence-Based Therapies</h3>
+            <p class="research-card__text">Tools incorporate principles from CBT (Cognitive Behavioral Therapy), IPSRT (Interpersonal and Social Rhythm Therapy), and functional remediation — all with demonstrated efficacy for bipolar disorder.</p>
+          </div>
+
+          <div class="research-card">
+            <div class="research-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+            </div>
+            <h3 class="research-card__title">Self-Management Science</h3>
+            <p class="research-card__text">Research consistently shows that structured self-monitoring and psychoeducation improve outcomes in bipolar disorder, reducing relapse rates and improving quality of life when used alongside clinical care.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__disclaimer">This suite is for educational and self-management purposes. It is not a substitute for professional medical care. If you are in crisis, please contact your healthcare provider or call the 988 Suicide & Crisis Lifeline.</p>
+    </div>
+  </footer>
+
+  <script src="shared/nav.js"></script>
+</body>
+</html>
