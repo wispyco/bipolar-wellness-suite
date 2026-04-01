@@ -1,0 +1,263 @@
+/* ==========================================================================
+   Hub Homepage Styles
+   ========================================================================== */
+
+/* Hero Section */
+.hub-hero {
+  text-align: center;
+  padding: clamp(var(--space-12), 8vw, var(--space-24)) 0 clamp(var(--space-8), 5vw, var(--space-16));
+}
+
+.hub-hero__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-6);
+}
+.hub-hero__logo svg {
+  width: clamp(64px, 10vw, 96px);
+  height: auto;
+  color: var(--color-primary);
+}
+
+.hub-hero__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.01em;
+}
+
+.hub-hero__subtitle {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  max-width: 52ch;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* --------------------------------------------------------------------------
+   App Grid
+   -------------------------------------------------------------------------- */
+.hub-grid-section {
+  padding-bottom: clamp(var(--space-12), 6vw, var(--space-20));
+}
+
+.hub-grid-section__title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-2);
+}
+
+.hub-grid-section__desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-8);
+}
+
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-5);
+}
+
+@media (max-width: 480px) {
+  .hub-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   App Cards
+   -------------------------------------------------------------------------- */
+.app-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  transition: all var(--transition-interactive);
+  position: relative;
+  overflow: hidden;
+}
+
+.app-card--active {
+  cursor: pointer;
+}
+.app-card--active:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.app-card--active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.app-card--coming {
+  opacity: 0.7;
+}
+.app-card--coming:hover {
+  opacity: 0.85;
+}
+
+.app-card__header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.app-card__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--color-primary-faded);
+  color: var(--color-primary);
+  transition: all var(--transition-interactive);
+}
+.app-card--active:hover .app-card__icon {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+.app-card__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.app-card__meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.app-card__number {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: var(--space-1);
+}
+
+.app-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--color-text);
+  line-height: 1.3;
+}
+
+.app-card__desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.app-card__footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Research Foundation Section
+   -------------------------------------------------------------------------- */
+.research-section {
+  padding: clamp(var(--space-12), 6vw, var(--space-20)) 0;
+  border-top: 1px solid var(--color-divider);
+}
+
+.research-section__header {
+  text-align: center;
+  margin-bottom: var(--space-10);
+}
+
+.research-section__title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-3);
+}
+
+.research-section__subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  max-width: 60ch;
+  margin: 0 auto;
+}
+
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-6);
+}
+
+.research-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+}
+
+.research-card__icon {
+  width: 36px;
+  height: 36px;
+  color: var(--color-secondary);
+  margin-bottom: var(--space-4);
+}
+.research-card__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.research-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-2);
+}
+
+.research-card__text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* --------------------------------------------------------------------------
+   Animations
+   -------------------------------------------------------------------------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hub-hero { animation: fadeInUp 0.6s ease-out; }
+.app-card { animation: fadeInUp 0.5s ease-out backwards; }
+.app-card:nth-child(1)  { animation-delay: 0.05s; }
+.app-card:nth-child(2)  { animation-delay: 0.1s; }
+.app-card:nth-child(3)  { animation-delay: 0.15s; }
+.app-card:nth-child(4)  { animation-delay: 0.2s; }
+.app-card:nth-child(5)  { animation-delay: 0.25s; }
+.app-card:nth-child(6)  { animation-delay: 0.3s; }
+.app-card:nth-child(7)  { animation-delay: 0.35s; }
+.app-card:nth-child(8)  { animation-delay: 0.4s; }
+.app-card:nth-child(9)  { animation-delay: 0.45s; }
+.app-card:nth-child(10) { animation-delay: 0.5s; }
+.app-card:nth-child(11) { animation-delay: 0.55s; }
+.app-card:nth-child(12) { animation-delay: 0.6s; }
