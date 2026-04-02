@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chronotherapy Planner -- Bipolar Wellness Suite</title>
+  <meta name="description" content="Bright light therapy, dark therapy, and wake therapy scheduling for bipolar disorder based on ISBD recommendations.">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 16c0-5 3.5-9 8-9s6 3 4 9c-2 6-2 9 4 9s8-4 8-9' fill='none' stroke='%233B5998' stroke-width='3' stroke-linecap='round'/></svg>">
+</head>
+<body>
+  <a href="#main" class="sr-only" style="position:absolute;top:var(--space-2);left:var(--space-2);z-index:1000;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);font-size:var(--text-sm);" onfocus="this.style.clip='auto';this.style.width='auto';this.style.height='auto';this.style.overflow='visible'" onblur="this.style.clip='rect(0,0,0,0)';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden'">Skip to content</a>
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../../index.html" class="site-nav__logo" aria-label="Back to Bipolar Wellness Suite">
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><path d="M3 18c0-6 4-12 9-12s7 4 6 12c-1 8-1 12 6 12s9-6 9-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="3" cy="18" r="2" fill="currentColor" opacity="0.4"/><circle cx="33" cy="18" r="2" fill="currentColor" opacity="0.4"/></svg>
+        <span class="site-nav__logo-text">Bipolar Wellness Suite</span>
+      </a>
+      <div class="site-nav__actions"><button class="btn-icon" data-theme-toggle aria-label="Toggle dark mode"></button></div>
+    </div>
+  </nav>
+
+  <main id="main" class="app-layout">
+    <div class="container">
+      <header class="app-header">
+        <div class="app-header__breadcrumb">
+          <a href="../../index.html">Suite</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span>Chronotherapy</span>
+        </div>
+        <h1 class="app-header__title">Chronotherapy Planner</h1>
+        <p class="app-header__subtitle">Light therapy, dark therapy, and wake therapy scheduling based on ISBD chronotherapy recommendations. These interventions target the circadian system to stabilize mood.</p>
+      </header>
+
+      <!-- Tabs -->
+      <div class="app-tabs" role="tablist" aria-label="App sections">
+        <button class="app-tab app-tab--active" role="tab" data-tab="light" aria-selected="true">Light Therapy</button>
+        <button class="app-tab" role="tab" data-tab="dark">Dark Therapy</button>
+        <button class="app-tab" role="tab" data-tab="wake">Wake Therapy</button>
+        <button class="app-tab" role="tab" data-tab="log">Exposure Log</button>
+        <button class="app-tab" role="tab" data-tab="seasonal">Seasonal</button>
+        <button class="app-tab" role="tab" data-tab="evidence">Evidence</button>
+      </div>
+
+      <!-- Tab: Bright Light Therapy -->
+      <section class="tab-panel tab-panel--active" data-panel="light">
+        <div class="card">
+          <h2 class="card__title">Bright Light Therapy Scheduler</h2>
+          <p class="card__desc">Bright light therapy is recommended by the ISBD for bipolar depression. Proper timing is critical -- morning light can help depression, but mid-day or evening light may trigger mania.</p>
+          <div class="therapy-config">
+            <div class="config-item">
+              <label class="form-label">Session Time</label>
+              <input type="time" id="blt-time" class="form-input" value="07:30">
+              <span class="config-note">Within 30 min of waking for depression</span>
+            </div>
+            <div class="config-item">
+              <label class="form-label">Duration (minutes)</label>
+              <select id="blt-duration" class="form-input form-select">
+                <option value="15">15 minutes</option>
+                <option value="30" selected>30 minutes</option>
+                <option value="45">45 minutes</option>
+                <option value="60">60 minutes</option>
+              </select>
+            </div>
+            <div class="config-item">
+              <label class="form-label">Intensity (lux)</label>
+              <select id="blt-lux" class="form-input form-select">
+                <option value="2500">2,500 lux</option>
+                <option value="5000">5,000 lux</option>
+                <option value="10000" selected>10,000 lux</option>
+              </select>
+              <span class="config-note">10,000 lux is the clinical standard</span>
+            </div>
+          </div>
+          <div class="safety-box safety-box--warning">
+            <h3 class="safety-box__title">Safety Guidelines</h3>
+            <ul class="safety-box__list">
+              <li>Start with 15 min and increase gradually</li>
+              <li>Use in the morning only -- afternoon/evening use can trigger mania</li>
+              <li>Stop immediately if you notice mania or hypomania symptoms</li>
+              <li>Do not look directly at the light source</li>
+              <li>Consult your psychiatrist before starting, especially if on lithium</li>
+              <li>Monitor mood daily during the first 2 weeks</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card schedule-card">
+          <h3 class="card__title">Your Weekly Schedule</h3>
+          <div id="blt-schedule" class="schedule-grid"></div>
+        </div>
+      </section>
+
+      <!-- Tab: Dark Therapy -->
+      <section class="tab-panel" data-panel="dark" hidden>
+        <div class="card">
+          <h2 class="card__title">Dark Therapy / Blue Light Management</h2>
+          <p class="card__desc">Dark therapy limits light exposure in the evening to support melatonin production and circadian alignment. For acute mania, extended darkness (14 hours) has shown rapid anti-manic effects.</p>
+          <div class="dark-plan">
+            <div class="dark-phase">
+              <h3 class="dark-phase__title dark-phase__title--evening">Evening Routine (6pm onward)</h3>
+              <ul class="dark-phase__steps">
+                <li><strong>6:00 PM</strong> -- Dim overhead lights, switch to warm/amber lighting</li>
+                <li><strong>7:00 PM</strong> -- Activate blue light filters on all screens (Night Shift, f.lux)</li>
+                <li><strong>8:00 PM</strong> -- Wear amber/orange-tinted glasses if still using screens</li>
+                <li><strong>9:00 PM</strong> -- Reduce screen use to minimum; prefer paper books or audio</li>
+                <li><strong>10:00 PM</strong> -- Complete darkness in bedroom; blackout curtains recommended</li>
+              </ul>
+            </div>
+            <div class="dark-phase">
+              <h3 class="dark-phase__title dark-phase__title--acute">Acute Mania Protocol (14-hour darkness)</h3>
+              <ul class="dark-phase__steps">
+                <li>Dark period: 6:00 PM to 8:00 AM (14 hours)</li>
+                <li>Complete darkness or amber-only lighting</li>
+                <li>Must be supervised by psychiatrist</li>
+                <li>Can produce rapid improvement in manic symptoms</li>
+                <li>Virtual darkness (amber glasses) is an alternative to total darkness</li>
+              </ul>
+            </div>
+          </div>
+          <div class="safety-box">
+            <h3 class="safety-box__title">Blue Light Checklist</h3>
+            <div id="blue-light-checklist" class="checklist"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: Wake Therapy -->
+      <section class="tab-panel" data-panel="wake" hidden>
+        <div class="card">
+          <h2 class="card__title">Wake Therapy (Sleep Deprivation Therapy)</h2>
+          <p class="card__desc">Total or partial sleep deprivation can produce rapid antidepressant effects in bipolar depression. This must be done under clinical supervision.</p>
+          <div class="protocol-cards">
+            <div class="protocol-card">
+              <h3 class="protocol-card__title">Total Wake Therapy</h3>
+              <p class="protocol-card__desc">Stay awake for 36 consecutive hours (one full night plus the following day).</p>
+              <div class="protocol-card__timeline">
+                <div class="timeline-step"><span class="step-time">Day 1, 7:00 AM</span><span class="step-text">Wake as normal</span></div>
+                <div class="timeline-step"><span class="step-time">Day 1, all day</span><span class="step-text">Stay active, bright light exposure in morning</span></div>
+                <div class="timeline-step timeline-step--highlight"><span class="step-time">Night 1</span><span class="step-text">Stay awake through the night (no naps)</span></div>
+                <div class="timeline-step"><span class="step-time">Day 2, all day</span><span class="step-text">Continue staying awake, bright light in morning</span></div>
+                <div class="timeline-step"><span class="step-time">Day 2, 7:00 PM</span><span class="step-text">Go to bed early for recovery sleep</span></div>
+                <div class="timeline-step"><span class="step-time">Day 3</span><span class="step-text">Resume normal schedule, assess mood</span></div>
+              </div>
+            </div>
+            <div class="protocol-card">
+              <h3 class="protocol-card__title">Partial Wake Therapy (Late Night)</h3>
+              <p class="protocol-card__desc">Sleep from 9 PM to 1 AM, then stay awake until the next evening. Often better tolerated.</p>
+              <div class="protocol-card__timeline">
+                <div class="timeline-step"><span class="step-time">9:00 PM</span><span class="step-text">Go to sleep</span></div>
+                <div class="timeline-step timeline-step--highlight"><span class="step-time">1:00 AM</span><span class="step-text">Wake up and stay awake</span></div>
+                <div class="timeline-step"><span class="step-time">Morning</span><span class="step-text">Bright light therapy 30 min after waking</span></div>
+                <div class="timeline-step"><span class="step-time">Full day</span><span class="step-text">Stay active, avoid napping</span></div>
+                <div class="timeline-step"><span class="step-time">Evening</span><span class="step-text">Go to bed at normal time</span></div>
+              </div>
+            </div>
+            <div class="protocol-card">
+              <h3 class="protocol-card__title">Triple Chronotherapy</h3>
+              <p class="protocol-card__desc">Combines wake therapy + bright light therapy + sleep phase advance. The most potent protocol.</p>
+              <div class="protocol-card__timeline">
+                <div class="timeline-step"><span class="step-time">Night 1</span><span class="step-text">Total wake therapy (stay up all night)</span></div>
+                <div class="timeline-step"><span class="step-time">Day 2 morning</span><span class="step-text">30 min bright light therapy</span></div>
+                <div class="timeline-step"><span class="step-time">Day 2, 6:00 PM</span><span class="step-text">Recovery sleep (early bedtime)</span></div>
+                <div class="timeline-step"><span class="step-time">Days 3-7</span><span class="step-text">Gradually shift bedtime later by 1 hour each night</span></div>
+                <div class="timeline-step"><span class="step-time">Day 7+</span><span class="step-text">Maintain target sleep schedule + daily light therapy</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="safety-box safety-box--red">
+            <h3 class="safety-box__title">Critical Safety Notes</h3>
+            <ul class="safety-box__list">
+              <li>Wake therapy MUST be supervised by a psychiatrist</li>
+              <li>Can trigger mania or mixed states in some patients</li>
+              <li>Do not attempt if you have a history of rapid cycling</li>
+              <li>Ensure medication stability before starting</li>
+              <li>Have someone check on you during the wake period</li>
+              <li>Antidepressant effects may be temporary without follow-up light therapy</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: Exposure Log -->
+      <section class="tab-panel" data-panel="log" hidden>
+        <div class="card">
+          <h2 class="card__title">Light Exposure Log</h2>
+          <p class="card__desc">Track your light therapy sessions and their effect on mood.</p>
+          <form id="log-form" class="log-form">
+            <div class="form-row">
+              <div class="form-group"><label class="form-label" for="log-date">Date</label><input type="date" id="log-date" class="form-input"></div>
+              <div class="form-group"><label class="form-label" for="log-time">Time</label><input type="time" id="log-time" class="form-input" value="07:30"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label" for="log-duration">Duration (min)</label><input type="number" id="log-duration" class="form-input" value="30" min="5" max="120"></div>
+              <div class="form-group"><label class="form-label" for="log-intensity">Intensity</label>
+                <select id="log-intensity" class="form-input form-select"><option value="10000">10,000 lux</option><option value="5000">5,000 lux</option><option value="2500">2,500 lux</option><option value="natural">Natural sunlight</option></select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label" for="log-mood-before">Mood Before (1-10)</label><input type="range" id="log-mood-before" class="form-range" min="1" max="10" value="4"><span class="range-val" id="mood-before-val">4</span></div>
+              <div class="form-group"><label class="form-label" for="log-mood-after">Mood After (1-10)</label><input type="range" id="log-mood-after" class="form-range" min="1" max="10" value="6"><span class="range-val" id="mood-after-val">6</span></div>
+            </div>
+            <div class="form-group"><label class="form-label" for="log-notes">Notes</label><input type="text" id="log-notes" class="form-input" placeholder="How did the session feel?"></div>
+            <button type="submit" class="btn btn-primary">Log Session</button>
+          </form>
+        </div>
+        <div class="card">
+          <h3 class="card__title">Mood Impact Over Time</h3>
+          <div class="chart-container"><canvas id="mood-chart"></canvas></div>
+        </div>
+        <div class="card">
+          <h3 class="card__title">Session History</h3>
+          <div id="log-history" class="log-history"></div>
+        </div>
+        <div id="save-toast" class="toast" hidden>Session logged</div>
+      </section>
+
+      <!-- Tab: Seasonal -->
+      <section class="tab-panel" data-panel="seasonal" hidden>
+        <div class="card">
+          <h2 class="card__title">Seasonal Adjustment Recommendations</h2>
+          <p class="card__desc">Many people with BD have seasonal patterns. Adjusting chronotherapy seasonally helps maintain stability year-round.</p>
+        </div>
+        <div class="season-grid">
+          <div class="season-card season-card--winter">
+            <div class="season-card__header"><h3>Winter</h3><span>Nov - Feb</span></div>
+            <ul class="season-card__recs">
+              <li>Increase bright light therapy to 30-45 min daily</li>
+              <li>Use a dawn simulator alarm clock</li>
+              <li>Get outdoor light exposure during daylight hours, even on cloudy days</li>
+              <li>Watch for depressive symptoms as days shorten</li>
+              <li>Consider vitamin D supplementation (discuss with doctor)</li>
+              <li>Maintain consistent wake times despite shorter days</li>
+            </ul>
+          </div>
+          <div class="season-card season-card--spring">
+            <div class="season-card__header"><h3>Spring</h3><span>Mar - May</span></div>
+            <ul class="season-card__recs">
+              <li>Watch for hypomania/mania as light increases rapidly</li>
+              <li>Reduce light therapy duration if mood elevates</li>
+              <li>Maintain evening dark therapy routine</li>
+              <li>Adjust bedtime if daylight starts disrupting sleep</li>
+              <li>Spring is the highest-risk season for mania onset</li>
+              <li>Increase monitoring of warning signs</li>
+            </ul>
+          </div>
+          <div class="season-card season-card--summer">
+            <div class="season-card__header"><h3>Summer</h3><span>Jun - Aug</span></div>
+            <ul class="season-card__recs">
+              <li>May not need supplemental light therapy due to natural sunlight</li>
+              <li>Use blackout curtains to prevent early morning light wake-ups</li>
+              <li>Continue amber glasses in the evening</li>
+              <li>Stay alert for mania triggers from extended daylight</li>
+              <li>Maintain consistent bedtime despite late sunsets</li>
+              <li>Use sunglasses in bright midday light if mood elevating</li>
+            </ul>
+          </div>
+          <div class="season-card season-card--fall">
+            <div class="season-card__header"><h3>Fall</h3><span>Sep - Oct</span></div>
+            <ul class="season-card__recs">
+              <li>Restart or increase light therapy as days shorten</li>
+              <li>Watch for depressive symptoms as daylight decreases</li>
+              <li>Adjust light therapy timing to match later sunrise</li>
+              <li>Prepare your winter chronotherapy plan with your care team</li>
+              <li>Daylight saving time change is a significant rhythm disruptor</li>
+              <li>Transition gradually -- do not change routines abruptly</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: Evidence -->
+      <section class="tab-panel" data-panel="evidence" hidden>
+        <div class="evidence-list">
+          <div class="evidence-card">
+            <h3 class="evidence-card__title">Bright Light Therapy for Bipolar Depression</h3>
+            <div class="evidence-card__level">Strong Evidence</div>
+            <p class="evidence-card__text">Multiple meta-analyses and systematic reviews support bright light therapy (BLT) for bipolar depression. The ISBD guidelines recommend BLT as an adjunctive treatment. Morning light at 10,000 lux for 15-30 minutes has shown significant antidepressant effects with NNT (number needed to treat) of approximately 4.</p>
+            <p class="evidence-card__cite">Sit DK, et al. Adjunctive Bright Light Therapy for Bipolar Depression: A Randomized Double-Blind Placebo-Controlled Trial. Am J Psychiatry. 2018;175(2):131-139.</p>
+          </div>
+          <div class="evidence-card">
+            <h3 class="evidence-card__title">Dark Therapy for Mania</h3>
+            <div class="evidence-card__level">Moderate Evidence</div>
+            <p class="evidence-card__text">Studies show that extending the dark period to 14 hours (virtual darkness using amber glasses) can rapidly reduce manic symptoms. Henriksen et al. found that blue-blocking glasses worn from 6 PM reduced YMRS scores significantly more than placebo glasses within 3 days.</p>
+            <p class="evidence-card__cite">Henriksen TE, et al. Blue-blocking glasses as additive treatment for mania: a randomized placebo-controlled trial. Bipolar Disord. 2016;18(3):221-232.</p>
+          </div>
+          <div class="evidence-card">
+            <h3 class="evidence-card__title">Wake Therapy for Bipolar Depression</h3>
+            <div class="evidence-card__level">Strong Evidence</div>
+            <p class="evidence-card__text">Total sleep deprivation produces rapid antidepressant effects in 40-60% of patients with bipolar depression, often within 24 hours. The effect can be sustained with concurrent bright light therapy and sleep phase advance (triple chronotherapy). Benedetti et al. found sustained response at 9 months with combined chronotherapy.</p>
+            <p class="evidence-card__cite">Benedetti F, et al. Rapid treatment response of suicidal symptoms to lithium, sleep deprivation, and light therapy (chronotherapeutics) in drug-resistant bipolar depression. J Clin Psychiatry. 2014;75(2):133-140.</p>
+          </div>
+          <div class="evidence-card">
+            <h3 class="evidence-card__title">Seasonal Patterns in BD</h3>
+            <div class="evidence-card__level">Established</div>
+            <p class="evidence-card__text">Approximately 25% of people with bipolar disorder have a seasonal pattern. Mania peaks in spring/summer (associated with increasing daylight), while depression peaks in fall/winter. This pattern supports the use of light-based interventions timed to seasonal changes.</p>
+            <p class="evidence-card__cite">Geoffroy PA, et al. Seasonality and bipolar disorder: a systematic review. Bipolar Disord. 2014;16(8):803-811.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__disclaimer">Chronotherapy should be conducted under the supervision of a healthcare provider. Wake therapy in particular requires clinical oversight. Do not attempt wake therapy without consulting your psychiatrist.</p>
+    </div>
+  </footer>
+
+  <script src="../../shared/nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
