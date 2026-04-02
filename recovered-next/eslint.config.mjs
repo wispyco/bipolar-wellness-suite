@@ -9,7 +9,7 @@ const nextConfig = compat.extends('next/core-web-vitals', 'next/typescript')
 
 const config = [
   {
-    ignores: ['.next/**', 'public/apps/**', 'next-env.d.ts'],
+    ignores: ['.next/**', 'public/apps/**', 'public/shared/**', 'next-env.d.ts'],
   },
   ...nextConfig,
 ]
