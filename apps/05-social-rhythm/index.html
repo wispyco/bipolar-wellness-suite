@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Rhythm Stabilizer -- Bipolar Wellness Suite</title>
+  <meta name="description" content="IPSRT-based daily routine scheduling. Track your five core social rhythms and build stability to prevent mood episodes.">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 16c0-5 3.5-9 8-9s6 3 4 9c-2 6-2 9 4 9s8-4 8-9' fill='none' stroke='%233B5998' stroke-width='3' stroke-linecap='round'/></svg>">
+</head>
+<body>
+
+  <a href="#main" class="sr-only" style="position:absolute;top:var(--space-2);left:var(--space-2);z-index:1000;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);font-size:var(--text-sm);" onfocus="this.style.clip='auto';this.style.width='auto';this.style.height='auto';this.style.overflow='visible'" onblur="this.style.clip='rect(0,0,0,0)';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden'">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../../index.html" class="site-nav__logo" aria-label="Back to Bipolar Wellness Suite">
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <path d="M3 18c0-6 4-12 9-12s7 4 6 12c-1 8-1 12 6 12s9-6 9-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="3" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+          <circle cx="33" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+        </svg>
+        <span class="site-nav__logo-text">Bipolar Wellness Suite</span>
+      </a>
+      <div class="site-nav__actions">
+        <button class="btn-icon" data-theme-toggle aria-label="Toggle dark mode"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main" class="app-layout">
+    <div class="container">
+
+      <header class="app-header">
+        <div class="app-header__breadcrumb">
+          <a href="../../index.html">Suite</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span>Social Rhythm</span>
+        </div>
+        <h1 class="app-header__title">Social Rhythm Stabilizer</h1>
+        <p class="app-header__subtitle">Based on Interpersonal and Social Rhythm Therapy (IPSRT) by Frank et al. Stable daily routines protect against mood episodes in bipolar disorder.</p>
+      </header>
+
+      <!-- Weekly Score Banner -->
+      <div class="score-banner">
+        <div class="score-banner__ring">
+          <svg viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="34" fill="none" stroke="var(--color-border)" stroke-width="6"/>
+            <circle id="score-ring" cx="40" cy="40" r="34" fill="none" stroke="var(--color-primary)" stroke-width="6" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="213.6" transform="rotate(-90 40 40)"/>
+          </svg>
+          <span class="score-banner__value" id="score-value">0</span>
+        </div>
+        <div class="score-banner__content">
+          <h2 class="score-banner__title">Weekly Rhythm Regularity Index</h2>
+          <p class="score-banner__desc" id="score-desc">Higher scores indicate more consistent daily routines. Target: 4.0+ out of 5.0.</p>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="app-tabs" role="tablist" aria-label="App sections">
+        <button class="app-tab app-tab--active" role="tab" data-tab="log" aria-selected="true">Daily Log</button>
+        <button class="app-tab" role="tab" data-tab="timeline">Timeline</button>
+        <button class="app-tab" role="tab" data-tab="disruptions">Disruptions</button>
+        <button class="app-tab" role="tab" data-tab="scheduler">Scheduler</button>
+        <button class="app-tab" role="tab" data-tab="tips">Rhythm Tips</button>
+      </div>
+
+      <!-- Tab: Daily Log (SRM-5) -->
+      <section class="tab-panel tab-panel--active" data-panel="log">
+        <div class="card">
+          <div class="log-header">
+            <h2 class="card__title">Social Rhythm Metric (SRM-5)</h2>
+            <span class="log-date" id="log-date"></span>
+          </div>
+          <p class="card__desc">Record the time of each anchor activity and who you were with. Consistency in these five activities helps stabilize circadian rhythms.</p>
+
+          <div class="srm-list" id="srm-list"></div>
+
+          <button class="btn btn-primary" id="save-log">Save Today's Log</button>
+        </div>
+        <div id="save-toast" class="toast" hidden>Log saved</div>
+      </section>
+
+      <!-- Tab: Timeline -->
+      <section class="tab-panel" data-panel="timeline" hidden>
+        <div class="card">
+          <h2 class="card__title">Rhythm Consistency Over Time</h2>
+          <p class="card__desc">Each row shows one activity. Dots indicate when you performed it each day. Tighter clustering means higher consistency.</p>
+          <div class="chart-container chart-container--tall">
+            <canvas id="timeline-chart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="card__title">Daily Regularity Score</h2>
+          <p class="card__desc">Your rhythm regularity index (0-5) over the past 14 days.</p>
+          <div class="chart-container">
+            <canvas id="regularity-chart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: Disruptions -->
+      <section class="tab-panel" data-panel="disruptions" hidden>
+        <div class="card">
+          <h2 class="card__title">Log a Disruption</h2>
+          <p class="card__desc">When something disrupts your routine, record it here. Understanding what disrupts your rhythms helps you plan ahead.</p>
+          <form id="disruption-form" class="disruption-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="disrupt-date">Date</label>
+                <input type="date" id="disrupt-date" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="disrupt-activity">Activity Affected</label>
+                <select id="disrupt-activity" class="form-input form-select">
+                  <option value="wake">Got out of bed</option>
+                  <option value="contact">First contact with person</option>
+                  <option value="work">Started work/school/activity</option>
+                  <option value="dinner">Had dinner</option>
+                  <option value="bed">Went to bed</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="disrupt-what">What happened?</label>
+              <textarea id="disrupt-what" class="form-input form-textarea" rows="2" placeholder="Describe the disruption..."></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="disrupt-impact">Impact on mood (1-5)</label>
+                <select id="disrupt-impact" class="form-input form-select">
+                  <option value="1">1 - Minimal</option>
+                  <option value="2">2 - Mild</option>
+                  <option value="3" selected>3 - Moderate</option>
+                  <option value="4">4 - Significant</option>
+                  <option value="5">5 - Severe</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="disrupt-type">Disruption type</label>
+                <select id="disrupt-type" class="form-input form-select">
+                  <option value="social">Social event</option>
+                  <option value="travel">Travel</option>
+                  <option value="work">Work change</option>
+                  <option value="health">Health issue</option>
+                  <option value="conflict">Interpersonal conflict</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Log Disruption</button>
+          </form>
+        </div>
+
+        <h3 class="section-title">Disruption History</h3>
+        <div id="disruption-list" class="disruption-list"></div>
+      </section>
+
+      <!-- Tab: Scheduler -->
+      <section class="tab-panel" data-panel="scheduler" hidden>
+        <div class="card">
+          <h2 class="card__title">Ideal Routine Scheduler</h2>
+          <p class="card__desc">Set your target times for each anchor activity. The app will compare your actual times against these targets.</p>
+          <div class="scheduler-list" id="scheduler-list"></div>
+          <button class="btn btn-primary" id="save-targets">Save Target Times</button>
+        </div>
+
+        <div class="card">
+          <h2 class="card__title">Additional Recurring Activities</h2>
+          <p class="card__desc">Add other activities you want to keep consistent (exercise, medication, therapy, etc.).</p>
+          <div class="add-activity-form">
+            <input type="text" id="new-activity-name" class="form-input" placeholder="Activity name...">
+            <input type="time" id="new-activity-time" class="form-input">
+            <button class="btn btn-primary" id="add-activity-btn">Add</button>
+          </div>
+          <div id="extra-activities" class="extra-activities"></div>
+        </div>
+      </section>
+
+      <!-- Tab: Tips -->
+      <section class="tab-panel" data-panel="tips" hidden>
+        <div class="tips-grid" id="tips-grid"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__disclaimer">This tool is for self-management and education. It is not a substitute for professional therapy. If you are in crisis, call 988.</p>
+    </div>
+  </footer>
+
+  <script src="../../shared/nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
