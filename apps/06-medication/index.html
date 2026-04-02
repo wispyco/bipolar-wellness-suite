@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medication Adherence Tracker -- Bipolar Wellness Suite</title>
+  <meta name="description" content="Track medication adherence, log side effects, and monitor effectiveness for bipolar disorder medications.">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 16c0-5 3.5-9 8-9s6 3 4 9c-2 6-2 9 4 9s8-4 8-9' fill='none' stroke='%233B5998' stroke-width='3' stroke-linecap='round'/></svg>">
+</head>
+<body>
+
+  <a href="#main" class="sr-only" style="position:absolute;top:var(--space-2);left:var(--space-2);z-index:1000;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);font-size:var(--text-sm);" onfocus="this.style.clip='auto';this.style.width='auto';this.style.height='auto';this.style.overflow='visible'" onblur="this.style.clip='rect(0,0,0,0)';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden'">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../../index.html" class="site-nav__logo" aria-label="Back to Bipolar Wellness Suite">
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <path d="M3 18c0-6 4-12 9-12s7 4 6 12c-1 8-1 12 6 12s9-6 9-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="3" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+          <circle cx="33" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+        </svg>
+        <span class="site-nav__logo-text">Bipolar Wellness Suite</span>
+      </a>
+      <div class="site-nav__actions">
+        <button class="btn-icon" data-theme-toggle aria-label="Toggle dark mode"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main" class="app-layout">
+    <div class="container">
+
+      <header class="app-header">
+        <div class="app-header__breadcrumb">
+          <a href="../../index.html">Suite</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span>Medication</span>
+        </div>
+        <h1 class="app-header__title">Medication Adherence Tracker</h1>
+        <p class="app-header__subtitle">Track your bipolar disorder medications, monitor adherence, log side effects, and rate effectiveness over time. Consistent medication use is one of the strongest predictors of stability.</p>
+      </header>
+
+      <!-- Adherence Summary -->
+      <div class="adherence-summary">
+        <div class="adherence-stat">
+          <div class="adherence-ring">
+            <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="34" fill="none" stroke="var(--color-border)" stroke-width="6"/><circle id="adherence-ring" cx="40" cy="40" r="34" fill="none" stroke="#5B8C5A" stroke-width="6" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="213.6" transform="rotate(-90 40 40)"/></svg>
+            <span class="adherence-ring__value" id="adherence-pct">0%</span>
+          </div>
+          <div class="adherence-stat__label">Weekly Adherence</div>
+        </div>
+        <div class="adherence-stat">
+          <span class="adherence-stat__big" id="streak-count">0</span>
+          <div class="adherence-stat__label">Day Streak</div>
+        </div>
+        <div class="adherence-stat">
+          <span class="adherence-stat__big" id="missed-count">0</span>
+          <div class="adherence-stat__label">Missed This Week</div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="app-tabs" role="tablist" aria-label="App sections">
+        <button class="app-tab app-tab--active" role="tab" data-tab="today" aria-selected="true">Today</button>
+        <button class="app-tab" role="tab" data-tab="medications">My Medications</button>
+        <button class="app-tab" role="tab" data-tab="adherence">Adherence</button>
+        <button class="app-tab" role="tab" data-tab="sideeffects">Side Effects</button>
+        <button class="app-tab" role="tab" data-tab="effectiveness">Effectiveness</button>
+      </div>
+
+      <!-- Tab: Today -->
+      <section class="tab-panel tab-panel--active" data-panel="today">
+        <div class="card">
+          <div class="today-header">
+            <h2 class="card__title">Today's Medications</h2>
+            <span class="today-date" id="today-date"></span>
+          </div>
+          <p class="card__desc">Check off each medication as you take it.</p>
+          <div id="today-list" class="today-list"></div>
+        </div>
+
+        <div class="card">
+          <h2 class="card__title">Log a Side Effect</h2>
+          <form id="side-effect-form" class="se-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="se-med">Medication</label>
+                <select id="se-med" class="form-input form-select"></select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="se-type">Side Effect</label>
+                <select id="se-type" class="form-input form-select">
+                  <option value="drowsiness">Drowsiness</option>
+                  <option value="weight-gain">Weight gain</option>
+                  <option value="nausea">Nausea</option>
+                  <option value="tremor">Tremor</option>
+                  <option value="dry-mouth">Dry mouth</option>
+                  <option value="dizziness">Dizziness</option>
+                  <option value="headache">Headache</option>
+                  <option value="insomnia">Insomnia</option>
+                  <option value="appetite-change">Appetite change</option>
+                  <option value="cognitive-fog">Cognitive fog</option>
+                  <option value="restlessness">Restlessness (akathisia)</option>
+                  <option value="thirst">Excessive thirst</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Severity (1-5)</label>
+                <div class="severity-btns" id="severity-btns">
+                  <button type="button" class="sev-btn" data-val="1">1</button>
+                  <button type="button" class="sev-btn" data-val="2">2</button>
+                  <button type="button" class="sev-btn sev-btn--active" data-val="3">3</button>
+                  <button type="button" class="sev-btn" data-val="4">4</button>
+                  <button type="button" class="sev-btn" data-val="5">5</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="se-notes">Notes</label>
+                <input type="text" id="se-notes" class="form-input" placeholder="Optional details...">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Log Side Effect</button>
+          </form>
+        </div>
+        <div id="save-toast" class="toast" hidden>Saved</div>
+      </section>
+
+      <!-- Tab: My Medications -->
+      <section class="tab-panel" data-panel="medications" hidden>
+        <div class="card">
+          <h2 class="card__title">Add Medication</h2>
+          <form id="add-med-form" class="med-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="med-name">Medication Name</label>
+                <input type="text" id="med-name" class="form-input" placeholder="e.g., Lithium, Lamotrigine...">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="med-dose">Dose</label>
+                <input type="text" id="med-dose" class="form-input" placeholder="e.g., 300mg">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="med-freq">Frequency</label>
+                <select id="med-freq" class="form-input form-select">
+                  <option value="once-morning">Once daily (morning)</option>
+                  <option value="once-evening">Once daily (evening)</option>
+                  <option value="twice">Twice daily</option>
+                  <option value="three">Three times daily</option>
+                  <option value="as-needed">As needed (PRN)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="med-time">Primary Time</label>
+                <input type="time" id="med-time" class="form-input" value="08:00">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Medication</button>
+          </form>
+        </div>
+
+        <h3 class="section-title">Current Medications</h3>
+        <div id="med-list" class="med-list"></div>
+      </section>
+
+      <!-- Tab: Adherence -->
+      <section class="tab-panel" data-panel="adherence" hidden>
+        <div class="charts-grid">
+          <div class="card">
+            <h2 class="card__title">Daily Adherence (Past 14 Days)</h2>
+            <p class="card__desc">Green = all doses taken. Yellow = partial. Red = missed.</p>
+            <div class="chart-container">
+              <canvas id="adherence-chart"></canvas>
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="card__title">Adherence by Medication</h2>
+            <p class="card__desc">How consistently you take each medication.</p>
+            <div class="chart-container">
+              <canvas id="per-med-chart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="card__title">Missed Dose Patterns</h2>
+          <p class="card__desc">Identifying when misses happen helps you address the root cause.</p>
+          <div id="missed-patterns" class="missed-patterns"></div>
+        </div>
+      </section>
+
+      <!-- Tab: Side Effects -->
+      <section class="tab-panel" data-panel="sideeffects" hidden>
+        <div class="card">
+          <h2 class="card__title">Side Effect Trends</h2>
+          <p class="card__desc">Severity of reported side effects over time.</p>
+          <div class="chart-container chart-container--tall">
+            <canvas id="se-chart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="card__title">Side Effect Log</h2>
+          <div id="se-log" class="se-log"></div>
+        </div>
+      </section>
+
+      <!-- Tab: Effectiveness -->
+      <section class="tab-panel" data-panel="effectiveness" hidden>
+        <div class="card">
+          <h2 class="card__title">Medication Effectiveness Self-Rating</h2>
+          <p class="card__desc">Rate how well each medication is working for you this week (1 = not helping, 5 = very effective). This helps you and your prescriber make informed decisions.</p>
+          <div id="effectiveness-list" class="effectiveness-list"></div>
+          <button class="btn btn-primary" id="save-effectiveness">Save Ratings</button>
+        </div>
+        <div class="card">
+          <h2 class="card__title">Effectiveness Over Time</h2>
+          <p class="card__desc">Weekly effectiveness self-ratings for each medication.</p>
+          <div class="chart-container">
+            <canvas id="effectiveness-chart"></canvas>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__disclaimer">This tool is for tracking purposes only. Never change or stop medication without consulting your prescriber. If you experience severe side effects, contact your healthcare provider immediately.</p>
+    </div>
+  </footer>
+
+  <script src="../../shared/nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
