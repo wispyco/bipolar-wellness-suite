@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Early Warning Signal Detector -- Bipolar Wellness Suite</title>
+  <meta name="description" content="Monitor personalized prodromal symptoms for mania and depression. Catch episodes early with color-coded alerts and action plans.">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 16c0-5 3.5-9 8-9s6 3 4 9c-2 6-2 9 4 9s8-4 8-9' fill='none' stroke='%233B5998' stroke-width='3' stroke-linecap='round'/></svg>">
+</head>
+<body>
+
+  <a href="#main" class="sr-only" style="position:absolute;top:var(--space-2);left:var(--space-2);z-index:1000;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);font-size:var(--text-sm);" onfocus="this.style.clip='auto';this.style.width='auto';this.style.height='auto';this.style.overflow='visible'" onblur="this.style.clip='rect(0,0,0,0)';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden'">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../../index.html" class="site-nav__logo" aria-label="Back to Bipolar Wellness Suite">
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <path d="M3 18c0-6 4-12 9-12s7 4 6 12c-1 8-1 12 6 12s9-6 9-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="3" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+          <circle cx="33" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+        </svg>
+        <span class="site-nav__logo-text">Bipolar Wellness Suite</span>
+      </a>
+      <div class="site-nav__actions">
+        <button class="btn-icon" data-theme-toggle aria-label="Toggle dark mode"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main" class="app-layout">
+    <div class="container">
+
+      <header class="app-header">
+        <div class="app-header__breadcrumb">
+          <a href="../../index.html">Suite</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span>Warning Signals</span>
+        </div>
+        <h1 class="app-header__title">Early Warning Signal Detector</h1>
+        <p class="app-header__subtitle">Monitor personalized prodromal symptoms for mania and depression. Catching early warning signs helps you intervene before a full episode develops.</p>
+      </header>
+
+      <!-- Alert Banner -->
+      <div id="alert-banner" class="alert-banner alert-banner--green">
+        <div class="alert-banner__icon" id="alert-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="alert-banner__content">
+          <h2 class="alert-banner__title" id="alert-title">Status: Stable</h2>
+          <p class="alert-banner__desc" id="alert-desc">No significant warning signs detected today.</p>
+        </div>
+        <div class="alert-banner__score">
+          <span class="alert-banner__score-value" id="alert-score">0</span>
+          <span class="alert-banner__score-label">Risk Score</span>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="app-tabs" role="tablist" aria-label="App sections">
+        <button class="app-tab app-tab--active" role="tab" data-tab="checkin" aria-selected="true">Daily Check-in</button>
+        <button class="app-tab" role="tab" data-tab="trends">Trends</button>
+        <button class="app-tab" role="tab" data-tab="signs">My Warning Signs</button>
+        <button class="app-tab" role="tab" data-tab="actions">Action Plans</button>
+      </div>
+
+      <!-- Tab: Daily Check-in -->
+      <section class="tab-panel tab-panel--active" data-panel="checkin">
+        <div class="card">
+          <div class="checkin-header">
+            <h2 class="card__title">Today's Check-in</h2>
+            <span class="checkin-date" id="checkin-date"></span>
+          </div>
+          <p class="card__desc">Rate each warning sign from 0 (absent) to 3 (severe). Be honest -- early detection is key.</p>
+
+          <h3 class="sign-category sign-category--mania">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            Mania Warning Signs
+          </h3>
+          <div id="mania-signs" class="sign-list"></div>
+
+          <h3 class="sign-category sign-category--depression">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            Depression Warning Signs
+          </h3>
+          <div id="depression-signs" class="sign-list"></div>
+
+          <button class="btn btn-primary" id="save-checkin">Save Today's Check-in</button>
+        </div>
+        <div id="save-toast" class="toast" aria-live="polite" hidden>Check-in saved</div>
+      </section>
+
+      <!-- Tab: Trends -->
+      <section class="tab-panel" data-panel="trends" hidden>
+        <div class="trends-grid">
+          <div class="card">
+            <h2 class="card__title">Overall Risk Score Trend</h2>
+            <p class="card__desc">Combined warning sign score over the past 14 days. Higher scores indicate more active warning signs.</p>
+            <div class="chart-container">
+              <canvas id="risk-chart"></canvas>
+            </div>
+          </div>
+          <div class="card">
+            <h2 class="card__title">Mania vs Depression Signals</h2>
+            <p class="card__desc">Comparing mania and depression warning sign totals over time.</p>
+            <div class="chart-container">
+              <canvas id="split-chart"></canvas>
+            </div>
+          </div>
+          <div class="card card--full">
+            <h2 class="card__title">Individual Sign Heatmap</h2>
+            <p class="card__desc">Which specific signs have been most active recently.</p>
+            <div id="heatmap" class="heatmap"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: My Warning Signs -->
+      <section class="tab-panel" data-panel="signs" hidden>
+        <div class="card">
+          <h2 class="card__title">Customize Warning Signs</h2>
+          <p class="card__desc">These are your personalized warning signs. The pre-loaded list covers common prodromal symptoms. Add your own signs that you have noticed before episodes.</p>
+
+          <div class="add-sign-form">
+            <input type="text" id="new-sign-name" class="form-input" placeholder="Enter a new warning sign...">
+            <select id="new-sign-type" class="form-input form-select">
+              <option value="mania">Mania</option>
+              <option value="depression">Depression</option>
+            </select>
+            <button class="btn btn-primary" id="add-sign-btn">Add Sign</button>
+          </div>
+        </div>
+
+        <h3 class="sign-section-title">Mania Signs</h3>
+        <div id="manage-mania" class="manage-signs"></div>
+
+        <h3 class="sign-section-title">Depression Signs</h3>
+        <div id="manage-depression" class="manage-signs"></div>
+      </section>
+
+      <!-- Tab: Action Plans -->
+      <section class="tab-panel" data-panel="actions" hidden>
+        <div class="action-plans">
+          <div class="action-card action-card--green">
+            <div class="action-card__header">
+              <div class="action-card__dot action-card__dot--green"></div>
+              <h3 class="action-card__title">Green Zone: Stable</h3>
+              <span class="action-card__range">Score 0-8</span>
+            </div>
+            <p class="action-card__desc">No significant warning signs. Continue your maintenance routine.</p>
+            <ul class="action-card__steps">
+              <li>Continue regular sleep schedule</li>
+              <li>Take medications as prescribed</li>
+              <li>Maintain social rhythms and daily routines</li>
+              <li>Keep up with regular therapy appointments</li>
+              <li>Continue daily mood and warning sign monitoring</li>
+            </ul>
+          </div>
+
+          <div class="action-card action-card--yellow">
+            <div class="action-card__header">
+              <div class="action-card__dot action-card__dot--yellow"></div>
+              <h3 class="action-card__title">Yellow Zone: Early Warning</h3>
+              <span class="action-card__range">Score 9-18</span>
+            </div>
+            <p class="action-card__desc">Some warning signs are emerging. Time to increase self-care and vigilance.</p>
+            <ul class="action-card__steps">
+              <li>Increase monitoring to twice daily (morning and evening)</li>
+              <li>Prioritize 8 hours of sleep -- strict bedtime routine</li>
+              <li>Reduce stimulation: limit caffeine, screen time, social commitments</li>
+              <li>Use CBT thought records if racing or negative thoughts appear</li>
+              <li>Contact your therapist or support person to discuss what you are noticing</li>
+              <li>Review and activate your personal coping strategies</li>
+            </ul>
+          </div>
+
+          <div class="action-card action-card--orange">
+            <div class="action-card__header">
+              <div class="action-card__dot action-card__dot--orange"></div>
+              <h3 class="action-card__title">Orange Zone: Escalating</h3>
+              <span class="action-card__range">Score 19-30</span>
+            </div>
+            <p class="action-card__desc">Multiple warning signs are active. Professional support is recommended.</p>
+            <ul class="action-card__steps">
+              <li>Contact your psychiatrist or therapist today</li>
+              <li>Consider whether medication adjustment is needed</li>
+              <li>Ask a trusted person to check in with you daily</li>
+              <li>Postpone major decisions and new commitments</li>
+              <li>Remove access to credit cards if mania signs are prominent</li>
+              <li>Increase structure: write out a simple daily plan</li>
+              <li>Avoid alcohol and recreational substances</li>
+            </ul>
+          </div>
+
+          <div class="action-card action-card--red">
+            <div class="action-card__header">
+              <div class="action-card__dot action-card__dot--red"></div>
+              <h3 class="action-card__title">Red Zone: Crisis Level</h3>
+              <span class="action-card__range">Score 31+</span>
+            </div>
+            <p class="action-card__desc">Severe warning signs indicate a possible episode. Immediate professional intervention is needed.</p>
+            <ul class="action-card__steps">
+              <li>Contact your psychiatrist or crisis team immediately</li>
+              <li>Call 988 (Suicide and Crisis Lifeline) if you are in danger</li>
+              <li>Go to the emergency room if needed</li>
+              <li>Activate your safety plan (see Crisis Planner app)</li>
+              <li>Ask someone to stay with you</li>
+              <li>Do not make any major life decisions</li>
+              <li>Ensure medications are being taken and not hoarded</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__disclaimer">This tool is for self-monitoring and education. It is not a diagnostic tool. If you are in crisis, call 988 or go to your nearest emergency room.</p>
+    </div>
+  </footer>
+
+  <script src="../../shared/nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
