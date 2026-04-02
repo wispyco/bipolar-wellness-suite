@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Functional Remediation -- Bipolar Wellness Suite</title>
+  <meta name="description" content="Cognitive training exercises, occupational goal tracking, and daily functioning assessment for bipolar disorder based on Torrent et al. research.">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 16c0-5 3.5-9 8-9s6 3 4 9c-2 6-2 9 4 9s8-4 8-9' fill='none' stroke='%233B5998' stroke-width='3' stroke-linecap='round'/></svg>">
+</head>
+<body>
+  <a href="#main" class="sr-only" style="position:absolute;top:var(--space-2);left:var(--space-2);z-index:1000;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);font-size:var(--text-sm);" onfocus="this.style.clip='auto';this.style.width='auto';this.style.height='auto';this.style.overflow='visible'" onblur="this.style.clip='rect(0,0,0,0)';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden'">Skip to content</a>
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../../index.html" class="site-nav__logo" aria-label="Back to Bipolar Wellness Suite">
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><path d="M3 18c0-6 4-12 9-12s7 4 6 12c-1 8-1 12 6 12s9-6 9-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="3" cy="18" r="2" fill="currentColor" opacity="0.4"/><circle cx="33" cy="18" r="2" fill="currentColor" opacity="0.4"/></svg>
+        <span class="site-nav__logo-text">Bipolar Wellness Suite</span>
+      </a>
+      <div class="site-nav__actions"><button class="btn-icon" data-theme-toggle aria-label="Toggle dark mode"></button></div>
+    </div>
+  </nav>
+
+  <main id="main" class="app-layout">
+    <div class="container">
+      <header class="app-header">
+        <div class="app-header__breadcrumb">
+          <a href="../../index.html">Suite</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span>Functional Rehab</span>
+        </div>
+        <h1 class="app-header__title">Functional Remediation</h1>
+        <p class="app-header__subtitle">Cognitive training exercises and occupational goal tracking based on functional remediation research by Torrent et al. Targets neurocognitive deficits that persist between mood episodes.</p>
+      </header>
+
+      <!-- Tabs -->
+      <div class="app-tabs" role="tablist" aria-label="App sections">
+        <button class="app-tab app-tab--active" role="tab" data-tab="exercises" aria-selected="true">Exercises</button>
+        <button class="app-tab" role="tab" data-tab="goals">Goals</button>
+        <button class="app-tab" role="tab" data-tab="assessment">Daily Assessment</button>
+        <button class="app-tab" role="tab" data-tab="progress">Progress</button>
+        <button class="app-tab" role="tab" data-tab="accommodations">Accommodations</button>
+        <button class="app-tab" role="tab" data-tab="tips">Tips</button>
+      </div>
+
+      <!-- Tab: Exercises -->
+      <section class="tab-panel tab-panel--active" data-panel="exercises">
+        <div class="exercise-categories">
+          <div class="ex-category">
+            <h2 class="ex-category__title"><span class="ex-category__icon ex-category__icon--attention"></span>Attention</h2>
+            <div class="ex-cards">
+              <div class="ex-card" data-game="number-sequence">
+                <h3 class="ex-card__title">Number Sequence</h3>
+                <p class="ex-card__desc">Watch the numbers flash and repeat the sequence. Tests sustained attention and working memory.</p>
+                <div class="ex-card__meta"><span>3-5 min</span><span>Beginner</span></div>
+                <button class="btn btn-primary ex-card__start" data-game="number-sequence">Start</button>
+              </div>
+              <div class="ex-card" data-game="color-word">
+                <h3 class="ex-card__title">Color-Word Challenge</h3>
+                <p class="ex-card__desc">Name the color of the text, not the word. Based on the Stroop test for selective attention.</p>
+                <div class="ex-card__meta"><span>2-4 min</span><span>Intermediate</span></div>
+                <button class="btn btn-primary ex-card__start" data-game="color-word">Start</button>
+              </div>
+            </div>
+          </div>
+          <div class="ex-category">
+            <h2 class="ex-category__title"><span class="ex-category__icon ex-category__icon--memory"></span>Memory</h2>
+            <div class="ex-cards">
+              <div class="ex-card" data-game="memory-match">
+                <h3 class="ex-card__title">Memory Match</h3>
+                <p class="ex-card__desc">Find matching pairs of cards. Trains visual memory and pattern recognition.</p>
+                <div class="ex-card__meta"><span>3-5 min</span><span>Beginner</span></div>
+                <button class="btn btn-primary ex-card__start" data-game="memory-match">Start</button>
+              </div>
+            </div>
+          </div>
+          <div class="ex-category">
+            <h2 class="ex-category__title"><span class="ex-category__icon ex-category__icon--executive"></span>Executive Function</h2>
+            <div class="ex-cards">
+              <div class="ex-card" data-game="category-sort">
+                <h3 class="ex-card__title">Category Sort</h3>
+                <p class="ex-card__desc">Sort items into the correct categories as quickly as possible. Builds cognitive flexibility.</p>
+                <div class="ex-card__meta"><span>3-5 min</span><span>Intermediate</span></div>
+                <button class="btn btn-primary ex-card__start" data-game="category-sort">Start</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game Area (shown when exercise starts) -->
+        <div id="game-area" class="game-area" hidden>
+          <div class="game-header">
+            <button class="back-btn" id="game-back"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg> Back</button>
+            <h2 class="game-title" id="game-title"></h2>
+            <div class="game-score" id="game-score"></div>
+          </div>
+          <div id="game-content" class="game-content"></div>
+        </div>
+      </section>
+
+      <!-- Tab: Goals -->
+      <section class="tab-panel" data-panel="goals" hidden>
+        <div class="card">
+          <h2 class="card__title">Occupational Goals</h2>
+          <p class="card__desc">Set specific, measurable goals for work, school, or daily responsibilities. Break big goals into small steps.</p>
+          <form id="goal-form" class="goal-form">
+            <div class="form-row">
+              <div class="form-group"><label class="form-label" for="goal-text">Goal</label><input type="text" id="goal-text" class="form-input" placeholder="What do you want to achieve?"></div>
+              <div class="form-group"><label class="form-label" for="goal-category">Category</label>
+                <select id="goal-category" class="form-input form-select"><option value="work">Work</option><option value="education">Education</option><option value="daily">Daily Living</option><option value="social">Social</option><option value="health">Health</option></select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Goal</button>
+          </form>
+        </div>
+        <div id="goals-list" class="goals-list"></div>
+      </section>
+
+      <!-- Tab: Daily Assessment -->
+      <section class="tab-panel" data-panel="assessment" hidden>
+        <div class="card">
+          <h2 class="card__title">Daily Functioning Self-Assessment</h2>
+          <p class="card__desc">Rate your functioning in each area today (1 = very difficult, 5 = no difficulty).</p>
+          <div id="assessment-items" class="assessment-items"></div>
+          <button class="btn btn-primary" id="save-assessment">Save Assessment</button>
+        </div>
+        <div id="save-toast" class="toast" hidden>Saved</div>
+      </section>
+
+      <!-- Tab: Progress -->
+      <section class="tab-panel" data-panel="progress" hidden>
+        <div class="progress-grid">
+          <div class="card">
+            <h2 class="card__title">Exercise Completion</h2>
+            <p class="card__desc">How many cognitive exercises you have completed over the past 14 days.</p>
+            <div class="chart-container"><canvas id="exercise-chart"></canvas></div>
+          </div>
+          <div class="card">
+            <h2 class="card__title">Daily Functioning Trend</h2>
+            <p class="card__desc">Average functioning score over time.</p>
+            <div class="chart-container"><canvas id="function-chart"></canvas></div>
+          </div>
+          <div class="card card--full">
+            <h2 class="card__title">Summary</h2>
+            <div class="summary-stats">
+              <div class="summary-stat"><span class="summary-stat__value" id="stat-exercises">0</span><span class="summary-stat__label">Total Exercises</span></div>
+              <div class="summary-stat"><span class="summary-stat__value" id="stat-streak">0</span><span class="summary-stat__label">Day Streak</span></div>
+              <div class="summary-stat"><span class="summary-stat__value" id="stat-avg">0</span><span class="summary-stat__label">Avg Functioning</span></div>
+              <div class="summary-stat"><span class="summary-stat__value" id="stat-goals">0</span><span class="summary-stat__label">Goals Completed</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: Accommodations -->
+      <section class="tab-panel" data-panel="accommodations" hidden>
+        <div class="card">
+          <h2 class="card__title">Work/School Accommodation Planner</h2>
+          <p class="card__desc">Common accommodations for cognitive symptoms of BD. Check the ones relevant to you and use this as a discussion tool with your employer, school, or disability office.</p>
+        </div>
+        <div id="accommodations-list" class="accommodations-list"></div>
+      </section>
+
+      <!-- Tab: Tips -->
+      <section class="tab-panel" data-panel="tips" hidden>
+        <div id="tips-list" class="tips-list"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__disclaimer">These exercises are for self-improvement and are not a replacement for professional neuropsychological assessment or occupational therapy. Discuss cognitive concerns with your care team.</p>
+    </div>
+  </footer>
+
+  <script src="../../shared/nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
