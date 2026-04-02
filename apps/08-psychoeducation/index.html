@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Psychoeducation Library -- Bipolar Wellness Suite</title>
+  <meta name="description" content="Evidence-based learning modules on bipolar disorder, medications, therapy options, triggers, and self-management strategies.">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="app.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 16c0-5 3.5-9 8-9s6 3 4 9c-2 6-2 9 4 9s8-4 8-9' fill='none' stroke='%233B5998' stroke-width='3' stroke-linecap='round'/></svg>">
+</head>
+<body>
+
+  <a href="#main" class="sr-only" style="position:absolute;top:var(--space-2);left:var(--space-2);z-index:1000;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);font-size:var(--text-sm);" onfocus="this.style.clip='auto';this.style.width='auto';this.style.height='auto';this.style.overflow='visible'" onblur="this.style.clip='rect(0,0,0,0)';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden'">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../../index.html" class="site-nav__logo" aria-label="Back to Bipolar Wellness Suite">
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <path d="M3 18c0-6 4-12 9-12s7 4 6 12c-1 8-1 12 6 12s9-6 9-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="3" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+          <circle cx="33" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+        </svg>
+        <span class="site-nav__logo-text">Bipolar Wellness Suite</span>
+      </a>
+      <div class="site-nav__actions">
+        <button class="btn-icon" data-theme-toggle aria-label="Toggle dark mode"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main" class="app-layout">
+    <div class="container">
+
+      <header class="app-header">
+        <div class="app-header__breadcrumb">
+          <a href="../../index.html">Suite</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span>Psychoeducation</span>
+        </div>
+        <h1 class="app-header__title">Psychoeducation Library</h1>
+        <p class="app-header__subtitle">Evidence-based learning modules on bipolar disorder. Psychoeducation is recommended by CANMAT/ISBD guidelines as a first-line adjunct treatment.</p>
+      </header>
+
+      <!-- Progress Banner -->
+      <div class="progress-banner">
+        <div class="progress-banner__info">
+          <h2 class="progress-banner__title">Your Progress</h2>
+          <p class="progress-banner__text"><span id="completed-count">0</span> of 8 modules completed</p>
+        </div>
+        <div class="progress-banner__bar">
+          <div class="progress-banner__fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-banner__bookmarks">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          <span id="bookmark-count">0</span> bookmarked
+        </div>
+      </div>
+
+      <!-- Filter -->
+      <div class="filter-bar">
+        <button class="filter-btn filter-btn--active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="bookmarked">Bookmarked</button>
+        <button class="filter-btn" data-filter="incomplete">Not Completed</button>
+        <button class="filter-btn" data-filter="completed">Completed</button>
+      </div>
+
+      <!-- Module List -->
+      <div id="module-list" class="module-list"></div>
+
+      <!-- Module View (shown when a module is opened) -->
+      <div id="module-view" class="module-view" hidden>
+        <button class="back-btn" id="back-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to Library
+        </button>
+        <div id="module-content" class="module-content"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__disclaimer">This educational content is based on published research and clinical guidelines. It is not a substitute for professional medical advice. Always consult your healthcare provider about treatment decisions.</p>
+    </div>
+  </footer>
+
+  <script src="../../shared/nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
