@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crisis & Support Planner -- Bipolar Wellness Suite</title>
+  <meta name="description" content="Safety planning, crisis contacts, support network management, and wellness plans for bipolar disorder based on the Stanley & Brown model.">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="app.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 16c0-5 3.5-9 8-9s6 3 4 9c-2 6-2 9 4 9s8-4 8-9' fill='none' stroke='%233B5998' stroke-width='3' stroke-linecap='round'/></svg>">
+</head>
+<body>
+  <a href="#main" class="sr-only" style="position:absolute;top:var(--space-2);left:var(--space-2);z-index:1000;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);font-size:var(--text-sm);" onfocus="this.style.clip='auto';this.style.width='auto';this.style.height='auto';this.style.overflow='visible'" onblur="this.style.clip='rect(0,0,0,0)';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden'">Skip to content</a>
+
+  <!-- Emergency Bar -->
+  <div class="emergency-bar">
+    <div class="container emergency-bar__inner">
+      <span class="emergency-bar__text">In immediate danger?</span>
+      <a href="tel:988" class="emergency-bar__btn emergency-bar__btn--call">Call 988</a>
+      <a href="sms:741741&body=HELLO" class="emergency-bar__btn">Text 741741</a>
+      <a href="tel:911" class="emergency-bar__btn emergency-bar__btn--911">Call 911</a>
+    </div>
+  </div>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../../index.html" class="site-nav__logo" aria-label="Back to Bipolar Wellness Suite">
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><path d="M3 18c0-6 4-12 9-12s7 4 6 12c-1 8-1 12 6 12s9-6 9-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="3" cy="18" r="2" fill="currentColor" opacity="0.4"/><circle cx="33" cy="18" r="2" fill="currentColor" opacity="0.4"/></svg>
+        <span class="site-nav__logo-text">Bipolar Wellness Suite</span>
+      </a>
+      <div class="site-nav__actions"><button class="btn-icon" data-theme-toggle aria-label="Toggle dark mode"></button></div>
+    </div>
+  </nav>
+
+  <main id="main" class="app-layout">
+    <div class="container">
+      <header class="app-header">
+        <div class="app-header__breadcrumb">
+          <a href="../../index.html">Suite</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span>Crisis Planner</span>
+        </div>
+        <h1 class="app-header__title">Crisis & Support Planner</h1>
+        <p class="app-header__subtitle">Based on the Stanley & Brown Safety Planning Intervention. Having a written plan ready before a crisis occurs is one of the most effective suicide prevention strategies.</p>
+      </header>
+
+      <!-- Tabs -->
+      <div class="app-tabs" role="tablist" aria-label="App sections">
+        <button class="app-tab app-tab--active" role="tab" data-tab="safety" aria-selected="true">Safety Plan</button>
+        <button class="app-tab" role="tab" data-tab="resources">Resources</button>
+        <button class="app-tab" role="tab" data-tab="network">Support Network</button>
+        <button class="app-tab" role="tab" data-tab="wellness">Wellness Plan</button>
+        <button class="app-tab" role="tab" data-tab="templates">Communication</button>
+      </div>
+
+      <!-- Tab: Safety Plan -->
+      <section class="tab-panel tab-panel--active" data-panel="safety">
+        <p class="plan-intro">The Stanley & Brown Safety Plan has 6 steps, used in order during a crisis. Complete each step now, while you are stable, so the plan is ready when you need it.</p>
+
+        <div class="plan-steps" id="plan-steps"></div>
+
+        <div id="save-toast" class="toast" hidden>Plan saved</div>
+      </section>
+
+      <!-- Tab: Resources -->
+      <section class="tab-panel" data-panel="resources" hidden>
+        <div class="resources-grid">
+          <div class="resource-card resource-card--primary">
+            <div class="resource-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <h3 class="resource-card__title">988 Suicide & Crisis Lifeline</h3>
+            <p class="resource-card__desc">Free, confidential support for people in distress, 24/7. Call or text 988.</p>
+            <a href="tel:988" class="resource-card__action">Call 988</a>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+            <h3 class="resource-card__title">Crisis Text Line</h3>
+            <p class="resource-card__desc">Text HOME to 741741 to connect with a trained crisis counselor.</p>
+            <a href="sms:741741&body=HELLO" class="resource-card__action">Text 741741</a>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <h3 class="resource-card__title">DBSA (Depression and Bipolar Support Alliance)</h3>
+            <p class="resource-card__desc">Peer-led support groups and resources specifically for bipolar disorder.</p>
+            <span class="resource-card__link">dbsalliance.org</span>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <h3 class="resource-card__title">NAMI Helpline</h3>
+            <p class="resource-card__desc">1-800-950-6264. Free information, referrals, and support. Mon-Fri 10am-10pm ET.</p>
+            <a href="tel:18009506264" class="resource-card__action">Call NAMI</a>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+            <h3 class="resource-card__title">International Association for Suicide Prevention</h3>
+            <p class="resource-card__desc">Directory of crisis centers worldwide.</p>
+            <span class="resource-card__link">iasp.info/resources/Crisis_Centres</span>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+            <h3 class="resource-card__title">988 Suicide & Crisis Lifeline Chat</h3>
+            <p class="resource-card__desc">Online chat support available 24/7 for those who prefer typing.</p>
+            <span class="resource-card__link">988lifeline.org/chat</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: Support Network -->
+      <section class="tab-panel" data-panel="network" hidden>
+        <div class="card">
+          <h2 class="card__title">My Support Network</h2>
+          <p class="card__desc">Map the people in your support circle. Having identified contacts ready before a crisis saves critical time.</p>
+          <div id="network-map" class="network-map"></div>
+        </div>
+        <div class="card">
+          <h2 class="card__title">Add a Contact</h2>
+          <form id="contact-form" class="contact-form">
+            <div class="form-row">
+              <div class="form-group"><label class="form-label" for="c-name">Name</label><input type="text" id="c-name" class="form-input" placeholder="Name"></div>
+              <div class="form-group"><label class="form-label" for="c-role">Role</label>
+                <select id="c-role" class="form-input form-select">
+                  <option value="professional">Professional (therapist, psychiatrist)</option>
+                  <option value="family">Family</option>
+                  <option value="friend">Friend</option>
+                  <option value="peer">Peer support</option>
+                  <option value="emergency">Emergency contact</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label" for="c-phone">Phone</label><input type="tel" id="c-phone" class="form-input" placeholder="Phone number"></div>
+              <div class="form-group"><label class="form-label" for="c-notes">Notes</label><input type="text" id="c-notes" class="form-input" placeholder="When to contact, availability"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Contact</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Tab: Wellness Plan -->
+      <section class="tab-panel" data-panel="wellness" hidden>
+        <div class="wellness-plans">
+          <div class="card wellness-card wellness-card--depression">
+            <h2 class="card__title">When I Am Depressed</h2>
+            <p class="card__desc">Strategies that help me when depression sets in.</p>
+            <div id="dep-strategies" class="strategy-list"></div>
+            <div class="add-strategy">
+              <input type="text" id="dep-new" class="form-input" placeholder="Add a strategy...">
+              <button class="btn btn-primary" id="dep-add-btn">Add</button>
+            </div>
+          </div>
+          <div class="card wellness-card wellness-card--mania">
+            <h2 class="card__title">When I Am Manic / Hypomanic</h2>
+            <p class="card__desc">Steps to take when mania or hypomania begins.</p>
+            <div id="mania-strategies" class="strategy-list"></div>
+            <div class="add-strategy">
+              <input type="text" id="mania-new" class="form-input" placeholder="Add a strategy...">
+              <button class="btn btn-primary" id="mania-add-btn">Add</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab: Communication -->
+      <section class="tab-panel" data-panel="templates" hidden>
+        <div class="card">
+          <h2 class="card__title">Communication Templates</h2>
+          <p class="card__desc">Pre-written messages to help you communicate about your condition. Customize them to fit your situation and share with the people who need to know.</p>
+        </div>
+        <div id="template-list" class="template-list"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__disclaimer">If you are in immediate danger, call 911. The 988 Suicide & Crisis Lifeline is available 24/7 by calling or texting 988. This tool helps you prepare but does not replace professional crisis intervention.</p>
+    </div>
+  </footer>
+
+  <script src="../../shared/nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
