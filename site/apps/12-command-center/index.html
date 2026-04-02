@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Command Center -- Bipolar Wellness Suite</title>
+  <meta name="description" content="Unified dashboard integrating insights from all 12 bipolar wellness tools. Cross-correlations, weekly reports, and pattern analysis.">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 16c0-5 3.5-9 8-9s6 3 4 9c-2 6-2 9 4 9s8-4 8-9' fill='none' stroke='%233B5998' stroke-width='3' stroke-linecap='round'/></svg>">
+</head>
+<body>
+  <a href="#main" class="sr-only" style="position:absolute;top:var(--space-2);left:var(--space-2);z-index:1000;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);font-size:var(--text-sm);" onfocus="this.style.clip='auto';this.style.width='auto';this.style.height='auto';this.style.overflow='visible'" onblur="this.style.clip='rect(0,0,0,0)';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden'">Skip to content</a>
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../../index.html" class="site-nav__logo" aria-label="Back to Bipolar Wellness Suite">
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><path d="M3 18c0-6 4-12 9-12s7 4 6 12c-1 8-1 12 6 12s9-6 9-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="3" cy="18" r="2" fill="currentColor" opacity="0.4"/><circle cx="33" cy="18" r="2" fill="currentColor" opacity="0.4"/></svg>
+        <span class="site-nav__logo-text">Bipolar Wellness Suite</span>
+      </a>
+      <div class="site-nav__actions"><button class="btn-icon" data-theme-toggle aria-label="Toggle dark mode"></button></div>
+    </div>
+  </nav>
+
+  <main id="main" class="app-layout">
+    <div class="container">
+      <header class="app-header">
+        <div class="app-header__breadcrumb">
+          <a href="../../index.html">Suite</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span>Command Center</span>
+        </div>
+        <h1 class="app-header__title">Integrated Command Center</h1>
+        <p class="app-header__subtitle">Your unified wellness dashboard. All 11 tools feed into this view, revealing patterns across mood, sleep, medication, social rhythms, and cognition.</p>
+      </header>
+
+      <!-- Tabs -->
+      <div class="app-tabs" role="tablist" aria-label="App sections">
+        <button class="app-tab app-tab--active" role="tab" data-tab="overview" aria-selected="true">Overview</button>
+        <button class="app-tab" role="tab" data-tab="correlations">Correlations</button>
+        <button class="app-tab" role="tab" data-tab="timeline">Timeline</button>
+        <button class="app-tab" role="tab" data-tab="report">Weekly Report</button>
+        <button class="app-tab" role="tab" data-tab="navigate">All Apps</button>
+      </div>
+
+      <!-- Tab: Overview -->
+      <section class="tab-panel tab-panel--active" data-panel="overview">
+        <!-- KPI Cards -->
+        <div class="kpi-grid" id="kpi-grid"></div>
+
+        <!-- Charts Row -->
+        <div class="charts-row">
+          <div class="card">
+            <h2 class="card__title">Mood Trend (7 Days)</h2>
+            <div class="chart-container"><canvas id="mood-chart"></canvas></div>
+          </div>
+          <div class="card">
+            <h2 class="card__title">QoL Radar (Latest)</h2>
+            <div class="chart-container chart-container--square"><canvas id="qol-radar"></canvas></div>
+          </div>
+        </div>
+
+        <!-- Insights -->
+        <div class="card">
+          <h2 class="card__title">Insights Engine</h2>
+          <p class="card__desc">Patterns detected across your data this week.</p>
+          <div id="insights-list" class="insights-list"></div>
+        </div>
+      </section>
+
+      <!-- Tab: Correlations -->
+      <section class="tab-panel" data-panel="correlations" hidden>
+        <div class="card">
+          <h2 class="card__title">Mood vs Sleep vs Medication</h2>
+          <p class="card__desc">Overlaid data streams reveal how sleep hours, medication adherence, and mood interact over the past 7 days.</p>
+          <div class="chart-container chart-container--tall"><canvas id="corr-chart"></canvas></div>
+        </div>
+        <div class="card">
+          <h2 class="card__title">Rhythm Stability vs Warning Signs</h2>
+          <p class="card__desc">Comparing your social rhythm regularity with your warning sign score.</p>
+          <div class="chart-container"><canvas id="rhythm-warn-chart"></canvas></div>
+        </div>
+      </section>
+
+      <!-- Tab: Timeline -->
+      <section class="tab-panel" data-panel="timeline" hidden>
+        <div class="card">
+          <h2 class="card__title">Unified Activity Timeline</h2>
+          <p class="card__desc">All events across all apps in chronological order for the past 7 days.</p>
+        </div>
+        <div id="timeline" class="timeline"></div>
+      </section>
+
+      <!-- Tab: Weekly Report -->
+      <section class="tab-panel" data-panel="report" hidden>
+        <div class="report" id="report-content"></div>
+        <button class="btn btn-primary" id="export-btn">Export Report as Text</button>
+      </section>
+
+      <!-- Tab: All Apps -->
+      <section class="tab-panel" data-panel="navigate" hidden>
+        <div class="nav-grid" id="nav-grid"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__disclaimer">This dashboard is for self-monitoring purposes. Share insights with your healthcare provider to support collaborative treatment decisions.</p>
+    </div>
+  </footer>
+
+  <script src="../../shared/nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
