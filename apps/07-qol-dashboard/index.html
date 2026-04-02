@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quality of Life Dashboard -- Bipolar Wellness Suite</title>
+  <meta name="description" content="12-domain quality of life self-assessment based on the QoL.BD framework for bipolar disorder.">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4 16c0-5 3.5-9 8-9s6 3 4 9c-2 6-2 9 4 9s8-4 8-9' fill='none' stroke='%233B5998' stroke-width='3' stroke-linecap='round'/></svg>">
+</head>
+<body>
+
+  <a href="#main" class="sr-only" style="position:absolute;top:var(--space-2);left:var(--space-2);z-index:1000;padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);font-size:var(--text-sm);" onfocus="this.style.clip='auto';this.style.width='auto';this.style.height='auto';this.style.overflow='visible'" onblur="this.style.clip='rect(0,0,0,0)';this.style.width='1px';this.style.height='1px';this.style.overflow='hidden'">Skip to content</a>
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="../../index.html" class="site-nav__logo" aria-label="Back to Bipolar Wellness Suite">
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <path d="M3 18c0-6 4-12 9-12s7 4 6 12c-1 8-1 12 6 12s9-6 9-12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="3" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+          <circle cx="33" cy="18" r="2" fill="currentColor" opacity="0.4"/>
+        </svg>
+        <span class="site-nav__logo-text">Bipolar Wellness Suite</span>
+      </a>
+      <div class="site-nav__actions">
+        <button class="btn-icon" data-theme-toggle aria-label="Toggle dark mode"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main" class="app-layout">
+    <div class="container">
+
+      <header class="app-header">
+        <div class="app-header__breadcrumb">
+          <a href="../../index.html">Suite</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span>Quality of Life</span>
+        </div>
+        <h1 class="app-header__title">Quality of Life Dashboard</h1>
+        <p class="app-header__subtitle">Based on the QoL.BD framework -- a bipolar-specific quality of life instrument measuring 12 life domains. Validated across international clinical trials.</p>
+      </header>
+
+      <!-- Overall Score -->
+      <div class="overall-banner">
+        <div class="overall-score">
+          <span class="overall-score__value" id="overall-value">0.0</span>
+          <span class="overall-score__max">/ 5.0</span>
+        </div>
+        <div class="overall-info">
+          <h2 class="overall-info__title">Overall Quality of Life</h2>
+          <p class="overall-info__desc" id="overall-desc">Complete an assessment to see your score.</p>
+        </div>
+        <div class="overall-meta">
+          <div class="overall-meta__item">
+            <span class="overall-meta__label">Strengths</span>
+            <span class="overall-meta__value" id="strength-count">0</span>
+          </div>
+          <div class="overall-meta__item">
+            <span class="overall-meta__label">Growth Areas</span>
+            <span class="overall-meta__value" id="growth-count">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="app-tabs" role="tablist" aria-label="App sections">
+        <button class="app-tab app-tab--active" role="tab" data-tab="overview" aria-selected="true">Overview</button>
+        <button class="app-tab" role="tab" data-tab="assess">New Assessment</button>
+        <button class="app-tab" role="tab" data-tab="domains">Domain Details</button>
+        <button class="app-tab" role="tab" data-tab="history">History</button>
+      </div>
+
+      <!-- Tab: Overview -->
+      <section class="tab-panel tab-panel--active" data-panel="overview">
+        <div class="overview-grid">
+          <div class="card card--radar">
+            <h2 class="card__title">QoL Radar</h2>
+            <p class="card__desc">Your most recent assessment across all 12 domains.</p>
+            <div class="chart-container chart-container--square">
+              <canvas id="radar-chart"></canvas>
+            </div>
+          </div>
+          <div class="card card--lists">
+            <div class="strengths-section">
+              <h3 class="list-title list-title--green">Strengths</h3>
+              <div id="strengths-list" class="domain-pills"></div>
+            </div>
+            <div class="growth-section">
+              <h3 class="list-title list-title--amber">Growth Areas</h3>
+              <div id="growth-list" class="domain-pills"></div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="section-title">All Domains</h3>
+        <div id="domain-bars" class="domain-bars"></div>
+      </section>
+
+      <!-- Tab: New Assessment -->
+      <section class="tab-panel" data-panel="assess" hidden>
+        <div class="card">
+          <h2 class="card__title">QoL.BD Assessment</h2>
+          <p class="card__desc">Rate each statement from 1 (Strongly Disagree) to 5 (Strongly Agree). Answer based on the past week.</p>
+          <div class="assess-progress">
+            <div class="assess-progress__bar"><div class="assess-progress__fill" id="assess-fill"></div></div>
+            <span class="assess-progress__text" id="assess-progress-text">0 of 48 answered</span>
+          </div>
+        </div>
+
+        <div id="assess-domains" class="assess-domains"></div>
+
+        <button class="btn btn-primary btn-full" id="submit-assessment">Complete Assessment</button>
+        <div id="save-toast" class="toast" hidden>Assessment saved</div>
+      </section>
+
+      <!-- Tab: Domain Details -->
+      <section class="tab-panel" data-panel="domains" hidden>
+        <div class="card">
+          <label class="form-label" for="domain-select">Select a domain</label>
+          <select id="domain-select" class="form-input form-select"></select>
+        </div>
+        <div id="domain-detail" class="domain-detail"></div>
+      </section>
+
+      <!-- Tab: History -->
+      <section class="tab-panel" data-panel="history" hidden>
+        <div class="card">
+          <h2 class="card__title">Assessment History</h2>
+          <p class="card__desc">Track how your quality of life changes over time.</p>
+          <div class="chart-container chart-container--tall">
+            <canvas id="history-chart"></canvas>
+          </div>
+        </div>
+        <div id="history-list" class="history-list"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__disclaimer">This tool is based on the QoL.BD framework and is for self-monitoring purposes. It is not a clinical diagnostic tool. Discuss your results with your healthcare provider.</p>
+    </div>
+  </footer>
+
+  <script src="../../shared/nav.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
